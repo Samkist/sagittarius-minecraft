@@ -1,5 +1,6 @@
-package me.cbotte21.LumaeMC.mongodb;
+package net.lumae.api.repository;
 
+import dev.samkist.lumae.sagittarius.data.models.Transaction;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

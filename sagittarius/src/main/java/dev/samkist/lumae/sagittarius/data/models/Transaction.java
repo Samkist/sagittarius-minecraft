@@ -1,4 +1,4 @@
-package me.cbotte21.LumaeMC.mongodb;
+package dev.samkist.lumae.sagittarius.data.models;
 
 import org.springframework.data.annotation.Id;
 

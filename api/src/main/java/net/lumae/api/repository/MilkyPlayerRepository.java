@@ -12,5 +12,4 @@ public interface MilkyPlayerRepository extends MongoRepository<MilkyPlayer, Stri
 
     List<MilkyPlayer> findByLastUsername(@Param("lastUsername") String lastUsername);
 
-
 }

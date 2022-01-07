@@ -1,8 +1,8 @@
-package me.cbotte21.LumaeMC.transaction;
+package net.lumae.api.controllers;
 
-import me.cbotte21.LumaeMC.account.AccountNotFoundException;
-import me.cbotte21.LumaeMC.mongodb.Transaction;
-import me.cbotte21.LumaeMC.mongodb.TransactionRepository;
+import dev.samkist.lumae.sagittarius.data.models.Transaction;
+import net.lumae.api.repository.RecordNotFoundException;
+import net.lumae.api.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
