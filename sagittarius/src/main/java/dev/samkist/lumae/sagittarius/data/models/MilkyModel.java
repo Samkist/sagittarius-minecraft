@@ -6,12 +6,12 @@ import org.springframework.data.annotation.Id;
 public abstract class MilkyModel {
 
     @Id
-    public String id;
+    public String uid;
     @JsonIgnore
     public String scope;
 
-    public MilkyModel(String id, String scope) {
-        this.id = id;
+    public MilkyModel(String uid, String scope) {
+        this.uid = uid;
         this.scope = scope;
     }
 
@@ -19,12 +19,12 @@ public abstract class MilkyModel {
 
     }
 
-    public String getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getScope() {

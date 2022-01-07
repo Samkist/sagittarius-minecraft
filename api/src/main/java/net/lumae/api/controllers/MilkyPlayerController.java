@@ -21,26 +21,26 @@ public class MilkyPlayerController {
     }
 
     @Cacheable("playerCache")
-    @GetMapping(value = "/players", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/players")
     public List<MilkyPlayer> all() {
         return repository.findAll();
     }
 
     @Cacheable("playerCache")
-    @PostMapping(value = "/players", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/players")
     public MilkyPlayer newMilkyPlayer(@RequestBody MilkyPlayer player) {
         return repository.save(player);
     }
 
     @Cacheable("playerCache")
-    @GetMapping(value = "/players/{uuid}", consumes = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/players/{uuid}")
     public MilkyPlayer one(@PathVariable String uuid) {
         return repository.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
     }
 
     @Cacheable("playerCache")
-    @DeleteMapping(value = "/players/{uuid}", consumes = MediaType.TEXT_PLAIN_VALUE)
+    @DeleteMapping(value = "/players/{uuid}")
     public void delete(@PathVariable String uuid) {
         repository.deleteById(uuid);
     }

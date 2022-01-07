@@ -15,11 +15,5 @@ public class Home extends MilkyModel {
         this.location = location;
     }
 
-    public SimpleLocation getLocation() {
-        return location;
-    }
 
-    public void setLocation(SimpleLocation location) {
-        this.location = location;
-    }
 }

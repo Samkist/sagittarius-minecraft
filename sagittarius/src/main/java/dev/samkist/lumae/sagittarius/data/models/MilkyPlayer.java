@@ -1,10 +1,6 @@
 package dev.samkist.lumae.sagittarius.data.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
-
-import java.math.BigDecimal;
 
 public class MilkyPlayer extends MilkyModel {
     private String lastUsername;
@@ -32,7 +28,7 @@ public class MilkyPlayer extends MilkyModel {
     }
 
     public MilkyPlayer(Player player) {
-        setId(player.getUniqueId().toString());
+        setUid(player.getUniqueId().toString());
         setLastUsername(player.getName());
         setBalance(0L);
         setVotes(0);
