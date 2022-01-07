@@ -1,0 +1,11 @@
+{
+  "default": {
+    "permission": "chatformats.default",
+    "formatStrings": {
+      "format": ""
+    },
+    "priority": 1010,
+    "id": "default",
+    "scope": "chat-formats"
+  }
+}
