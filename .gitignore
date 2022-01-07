@@ -1,0 +1,4 @@
+# Project exclude paths
+/.gradle/
+/sagittarius/build/
+/sagittarius/build/classes/java/main/

@@ -1,0 +1,4 @@
+rootProject.name = 'lumae'
+include 'sagittarius'
+include 'modeltesting'
+
