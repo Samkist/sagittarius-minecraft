@@ -2,10 +2,12 @@ package dev.samkist.lumae.sagittarius.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import dev.samkist.lumae.sagittarius.Sagittarius;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,6 +15,7 @@ import java.util.*;
 
 public class FileManager {
 
+    private final Sagittarius plugin;
     private final File dataFolder;
     private final Path dataPath;
     private final String dataString;
@@ -22,8 +25,9 @@ public class FileManager {
     private final ArrayList<String> jsonFiles = new ArrayList<>();
     private final List<String> directories = Arrays.asList("data");
 
-    public FileManager(File dataFolder) {
-        this.dataFolder = dataFolder;
+    public FileManager(Sagittarius sagittarius) {
+        this.plugin = sagittarius;
+        this.dataFolder = sagittarius.getDataFolder();
         this.dataPath = dataFolder.toPath();
         this.dataString = dataPath.toString();
         registerJsonFile("chat-formats", "data");
@@ -46,6 +50,13 @@ public class FileManager {
                 }
             }
         });
+
+        loadYaml(ymlFiles);
+        loadJson(jsonFiles);
+    }
+
+    public Path pathByScope(String scope) {
+        return paths.get(scope);
     }
 
     public void reloadConfigurations() {
@@ -64,28 +75,39 @@ public class FileManager {
     public void loadYaml(String ymlFile) {
         Path path = Paths.get(dataString, ymlFile);
 
-        generateFile(ymlFile, path);
+        generateResource(ymlFile, path);
 
         configFiles.put(ymlFile, YamlConfiguration.loadConfiguration(new File(dataFolder, ymlFile)));
     }
 
-    public void loadJsonFiles(List<String> jsonFiles) {
-        jsonFiles.forEach(this::loadJsonFile);
+    public void loadJson(List<String> jsonFiles) {
+        jsonFiles.forEach(this::loadJson);
     }
 
-    public void loadJsonFile(String jsonFile) {
+    public void loadJson(String jsonFile) {
         String json = "data/" + jsonFile;
         Path path = Paths.get(dataPath.resolve(json).toUri());
-        generateFile(json, path);
+        generateResource(json, path);
     }
 
-    public void generateFile(String treeName, Path path) {
+    public void generateResource(String treeName, Path path) {
         if (Files.notExists(path)) {
             try {
                 Files.copy(getClass().getClassLoader().getResourceAsStream(treeName), path);
             } catch (IOException e) {
+                generateFile(treeName, path);
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void generateFile(String treeName, Path path) {
+        String space = " ";
+        InputStream inputStream = new ByteArrayInputStream(space.getBytes(Charset.forName("UTF-8")));
+        try {
+            Files.copy(inputStream, path);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -95,8 +117,12 @@ public class FileManager {
         jsonFiles.add(jsonName);
     }
 
+    public <K, V> HashMap<K, V> loadMap(Gson gson, String scope,  TypeToken<? extends Map<K, V>> typeToken) {
+        return loadMap(gson, pathByScope(scope), typeToken);
+    }
+
     // Loads a map from a json file
-    public <K, V> HashMap<K, V> loadMap(Gson gson, Path file, TypeToken<? extends Map<K, V>> typeToken) {
+    private <K, V> HashMap<K, V> loadMap(Gson gson, Path file, TypeToken<? extends Map<K, V>> typeToken) {
         final HashMap<K, V> map = new HashMap<>();
 
         try (BufferedReader reader = Files.newBufferedReader(file)) {
@@ -108,8 +134,12 @@ public class FileManager {
         return map;
     }
 
+    public <K, V> void saveMap(Gson gson, String scope, Map<K, V> map) {
+        saveMap(gson, pathByScope(scope), map);
+    }
+
     // Saves a map to a json file
-    public <K, V> void saveMap(Gson gson, Path file, Map<K, V> map) {
+    private <K, V> void saveMap(Gson gson, Path file, Map<K, V> map) {
         if(Objects.isNull(map)) {
             return;
         }
@@ -121,8 +151,12 @@ public class FileManager {
         }
     }
 
+    public <T> Optional<T> loadObject(Gson gson, String scope, Type type) {
+        return loadObject(gson, pathByScope(scope), type);
+    }
+
     // Loads an object from JSON assuming it has a type adapter
-    public <T> Optional<T> loadObject(Gson gson, Path file, Type type) {
+    private <T> Optional<T> loadObject(Gson gson, Path file, Type type) {
         // Satisfy compiler :)
         T object = null;
         try {
@@ -134,7 +168,11 @@ public class FileManager {
         return Optional.ofNullable(object);
     }
 
-    public void saveObject(Gson gson, Path file, Object object) {
+    public void saveObject(Gson gson, String scope, Object object) {
+        saveObject(gson, pathByScope(scope), object);
+    }
+
+    private void saveObject(Gson gson, Path file, Object object) {
         if(Objects.isNull(object)) {
             return;
         }

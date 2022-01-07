@@ -5,5 +5,9 @@ import dev.samkist.lumae.sagittarius.Sagittarius;
 public class PlayerDataHandler {
     private Sagittarius plugin;
 
-    public PlayerDataHandler
+    public PlayerDataHandler(Sagittarius plugin) {
+        this.plugin = plugin;
+    }
+
+
 }
