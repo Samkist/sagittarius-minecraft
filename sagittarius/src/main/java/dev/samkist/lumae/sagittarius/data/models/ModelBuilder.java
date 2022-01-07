@@ -17,11 +17,6 @@ public abstract class ModelBuilder<T extends MilkyModel, TBuilder extends ModelB
         this.id = model.id;
     }
 
-    public TBuilder scope(@Nonnull String scope) {
-        this.scope = scope;
-        return (TBuilder) this;
-    }
-
     public String scope() {
         return this.scope;
     }
