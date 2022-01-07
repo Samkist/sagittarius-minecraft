@@ -12,6 +12,6 @@ public class ChatFormatBuilder extends FormatBuilder<ChatFormat, ChatFormatBuild
 
     @Override
     public ChatFormat build() {
-        return new ChatFormat(id(), "chat-formats", permission(), formatStrings(), priority());
+        return new ChatFormat(id(), ChatFormat.scope, permission(), formatStrings(), priority());
     }
 }

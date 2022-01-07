@@ -11,6 +11,7 @@ public class MilkyPlayer extends MilkyModel {
     final Integer secondsPlayed;
     final Long joinDate;
     final Location lastLocation;
+    public static final String scope = "milky-players";
 
     protected MilkyPlayer(String id, String scope, String lastUsername, BigDecimal balance, Integer votes, Integer secondsPlayed, Long joinDate, Location lastLocation) {
         super(id, scope);

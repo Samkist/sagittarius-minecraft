@@ -29,7 +29,7 @@ public class MilkyPlayerBuilder extends ModelBuilder<MilkyPlayer, MilkyPlayerBui
 
     @Override
     public MilkyPlayer build() {
-        return new MilkyPlayer(id(), "milky-players", lastUsername, balance, votes, secondsPlayed, joinDate, lastLocation);
+        return new MilkyPlayer(id(), MilkyPlayer.scope, lastUsername, balance, votes, secondsPlayed, joinDate, lastLocation);
     }
 
     public MilkyPlayerBuilder lastUsername(String lastUsername) {
