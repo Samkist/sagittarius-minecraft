@@ -3,6 +3,9 @@ package dev.samkist.lumae.sagittarius.storage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dev.samkist.lumae.sagittarius.Sagittarius;
+import dev.samkist.lumae.sagittarius.data.models.ChatFormat;
+import dev.samkist.lumae.sagittarius.data.models.JoinLeaveFormat;
+import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
@@ -30,9 +33,9 @@ public class FileManager {
         this.dataFolder = sagittarius.getDataFolder();
         this.dataPath = dataFolder.toPath();
         this.dataString = dataPath.toString();
-        registerJsonFile("chat-formats", "data");
-        registerJsonFile("join-leave-formats", "data");
-        registerJsonFile("milky-players", "data");
+        registerJsonFile(ChatFormat.scope, "data");
+        registerJsonFile(JoinLeaveFormat.scope, "data");
+        registerJsonFile(MilkyPlayer.scope, "data");
     }
 
     public void load() {
@@ -96,7 +99,6 @@ public class FileManager {
                 Files.copy(getClass().getClassLoader().getResourceAsStream(treeName), path);
             } catch (IOException e) {
                 generateFile(treeName, path);
-                e.printStackTrace();
             }
         }
     }

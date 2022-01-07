@@ -1,8 +1,12 @@
 package dev.samkist.lumae.sagittarius.data.models;
 
+import org.springframework.data.annotation.Id;
+
 public abstract class MilkyModel {
-    public final String id;
-    public final String scope;
+
+    @Id
+    public String id;
+    public String scope;
 
     public MilkyModel(String id, String scope) {
         this.id = id;
