@@ -10,7 +10,7 @@ public class MilkyPlayer extends MilkyModel {
     final Integer joinDate;
 
     protected MilkyPlayer(String id, String scope, String lastUsername, BigDecimal balance, Integer votes, Integer secondsPlayed, Integer joinDate) {
-        super(id, "milkyPlayers");
+        super(id, "milky-players");
         this.lastUsername = lastUsername;
         this.balance = balance;
         this.votes = votes;

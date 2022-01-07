@@ -1,5 +1,7 @@
 package dev.samkist.lumae.sagittarius.data.models;
 
+import org.bukkit.entity.Player;
+
 import java.math.BigDecimal;
 
 public class MilkyPlayerBuilder extends ModelBuilder<MilkyPlayer, MilkyPlayerBuilder> {
@@ -13,9 +15,14 @@ public class MilkyPlayerBuilder extends ModelBuilder<MilkyPlayer, MilkyPlayerBui
         super(player);
     }
 
+    public MilkyPlayerBuilder(Player player) {
+        super();
+        lastUsername = player.getName();
+    }
+
     @Override
     public MilkyPlayer build() {
-        return new MilkyPlayer(id(), scope(), lastUsername, balance, votes, secondsPlayed, joinDate);
+        return new MilkyPlayer(id(), "milkyPlayers", lastUsername, balance, votes, secondsPlayed, joinDate);
     }
 
     public MilkyPlayerBuilder lastUsername(String lastUsername) {
@@ -25,6 +32,42 @@ public class MilkyPlayerBuilder extends ModelBuilder<MilkyPlayer, MilkyPlayerBui
 
     public String lastUsername() {
         return lastUsername;
+    }
+
+    public MilkyPlayerBuilder balance(BigDecimal balance) {
+        this.balance = balance;
+        return this;
+    }
+
+    public BigDecimal balance() {
+        return balance;
+    }
+
+    public MilkyPlayerBuilder votes(Integer votes) {
+        this.votes = votes;
+        return this;
+    }
+
+    public Integer votes() {
+        return votes;
+    }
+
+    public MilkyPlayerBuilder secondsPlayed(Integer secondsPlayed) {
+        this.secondsPlayed = secondsPlayed;
+        return this;
+    }
+
+    public Integer secondsPlayed() {
+        return secondsPlayed;
+    }
+
+    public MilkyPlayerBuilder joinDate(Integer joinDate) {
+        this.joinDate = joinDate;
+        return this;
+    }
+
+    public Integer joinDate() {
+        return joinDate;
     }
 
 
