@@ -1,5 +1,6 @@
 package net.lumae.api.controllers;
 
+import dev.samkist.lumae.sagittarius.data.models.Home;
 import dev.samkist.lumae.sagittarius.data.models.Homes;
 import net.lumae.api.ApiApplication;
 import net.lumae.api.repository.HomesRepository;
@@ -43,15 +44,27 @@ public class HomesController {
     @Cacheable("homeCache")
     @GetMapping("/homes/{uuid}")
     public Homes one(@PathVariable String uuid) {
-        return homes.findById(uuid)
-                .orElseThrow(() -> new RecordNotFoundException(uuid, Homes.scope));
+        return homesById(uuid);
+    }
+
+    @Cacheable("homeCache")
+    @PostMapping("/homes/{uuid}/homes/{name}")
+    public Homes newHome(@PathVariable String uuid, @RequestBody Home home) {
+        Homes playerHomes = homesById(uuid);
+        playerHomes.addHome(home);
+        return homes.save(playerHomes);
+    }
+    
+    @Cacheable("homeCache")
+    @GetMapping("/homes/{uuid}/homes/{name}")
+    public Home oneHome(@PathVariable String uuid, @PathVariable String name) {
+        return homesById(uuid).getHomeById(name);
     }
 
     @Cacheable("homeCache")
     @DeleteMapping("/players/{uuid}/homes/{name}")
     public void delete(@PathVariable String uuid, @PathVariable String name) {
-        Homes playerHomes = homes.findById(uuid)
-                .orElseThrow(() -> new RecordNotFoundException(uuid, Homes.scope));
+        Homes playerHomes = homesById(uuid);
         playerHomes.removeHome(name);
         homes.save(playerHomes);
     } //TODO: Add deleteHomeByName(uuid, name) function
@@ -60,5 +73,10 @@ public class HomesController {
     @DeleteMapping("/players/{uuid}/homes")
     public void delete(@PathVariable String uuid) {
         homes.deleteById(uuid);
+    }
+
+    private Homes homesById(String uuid) {
+        return homes.findById(uuid)
+                .orElseThrow(() -> new RecordNotFoundException(uuid, Homes.scope));
     }
 }
