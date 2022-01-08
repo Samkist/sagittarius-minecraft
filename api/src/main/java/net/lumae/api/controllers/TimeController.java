@@ -35,11 +35,12 @@ public class TimeController {
 
     @Cacheable("playerCache")
     @PostMapping("/time/played/")
-    public String add(@RequestBody List<MilkyPlayer> activePlayers, @RequestBody int seconds) {
-        for (MilkyPlayer p : activePlayers) {
-            players.findById(p.uid)
-                    .orElseThrow(() -> new RecordNotFoundException(p.uid, MilkyPlayer.scope))
-                    .setSecondsPlayed(p.getSecondsPlayed() + seconds);
+    public String add(@RequestBody List<String> activePlayers, @RequestBody int seconds) {
+        for (String uuid : activePlayers) {
+            MilkyPlayer p = players.findById(uuid)
+                    .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
+            p.setSecondsPlayed(p.getSecondsPlayed() + seconds);
+            players.save(p);
         }
         return "success:true";
     }
