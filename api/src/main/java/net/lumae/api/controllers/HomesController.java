@@ -48,6 +48,12 @@ public class HomesController {
     }
 
     @Cacheable("homeCache")
+    @DeleteMapping("/players/{uuid}/homes/{name}")
+    public void delete(@PathVariable String uuid, @PathVariable String name) {
+        homes.deleteById(uuid);
+    } //TODO: Add deleteHomeByName(uuid, name) function
+
+    @Cacheable("homeCache")
     @DeleteMapping("/players/{uuid}/homes")
     public void delete(@PathVariable String uuid) {
         homes.deleteById(uuid);
