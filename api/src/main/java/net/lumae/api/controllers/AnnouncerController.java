@@ -4,7 +4,6 @@ import dev.samkist.lumae.sagittarius.data.models.Announcement;
 import net.lumae.api.repository.AnnouncerRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,36 +18,44 @@ public class AnnouncerController {
         this.announcer = announcer;
     }
 
-    @Cacheable("playerCache")
     @GetMapping("/announcements")
     public List<Announcement> all() {
         return announcer.findAll();
     }
 
-    @Cacheable("playerCache")
     @GetMapping("/announcements/{id}")
     public String get(@PathVariable String id) {
         return announcer.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(id, Announcement.scope)).getMessage();
     }
+    @GetMapping("/announcements/refresh")
+    public void refresh() {
+        List<Announcement> announcements = announcer.findAll();
+        for (int i = 0; i < announcements.size(); i++) {
+            for (Announcement announcement : announcements) {
+                if (announcement.uid == String.valueOf(i)) {
+                    loaded_announcements.add(i, announcement);
+                    break;
+                }
+            }
+        }
+    }
 
-    @Cacheable("playerCache")
     @GetMapping("/announcements/length")
     public int size(@PathVariable String id) {
         return (int)announcer.count();
     }
 
-    @Cacheable("playerCache")
     @PostMapping("/announcement")
     public int add(@RequestBody String message) {
         announcer.insert(new Announcement(String.valueOf(loaded_announcements.size()), message));
-        loaded_announcements = all();
+        refresh();
         return loaded_announcements.size();
     }
 
-    @Cacheable("playerCache")
     @DeleteMapping("/time/played")
     public void delete(@RequestBody String id) {
         announcer.deleteById(id);
+        refresh();
     }
 }
