@@ -37,7 +37,9 @@ public class TimeController {
     @PostMapping("/time/played/")
     public String add(@RequestBody List<MilkyPlayer> activePlayers, @RequestBody int seconds) {
         for (MilkyPlayer p : activePlayers) {
-            players.findById(p.uid).get().setSecondsPlayed(p.getSecondsPlayed() + seconds);
+            players.findById(p.uid)
+                    .orElseThrow(() -> new RecordNotFoundException(p.uid, MilkyPlayer.scope))
+                    .setSecondsPlayed(p.getSecondsPlayed() + seconds);
         }
         return "success:true";
     }
