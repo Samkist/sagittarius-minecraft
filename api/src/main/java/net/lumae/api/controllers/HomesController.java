@@ -26,29 +26,13 @@ public class HomesController {
      */
 
     @Cacheable("homeCache")
-    @GetMapping("/homes")
-    public List<Homes> all() {
-        return homes.findAll();
-    }
-
-    @Cacheable("homeCache")
-    @GetMapping("/homes/{uuid}")
-    public Homes newHomes(@PathVariable String uuid, @RequestBody Homes home) {
-        if(home.uid.equalsIgnoreCase(uuid)) {
-            return homes.save(home);
-        } else {
-            return null;
-        }
-    }
-
-    @Cacheable("homeCache")
-    @GetMapping("/homes/{uuid}")
+    @GetMapping("/players/{uuid}/homes/")
     public Homes one(@PathVariable String uuid) {
         return homesById(uuid);
     }
 
     @Cacheable("homeCache")
-    @PostMapping("/homes/{uuid}/homes")
+    @PostMapping("/players/{uuid}/homes/")
     public Homes newHome(@PathVariable String uuid, @RequestBody Home home) {
         Homes playerHomes = homesById(uuid);
         playerHomes.addHome(home);
@@ -56,7 +40,7 @@ public class HomesController {
     }
 
     @Cacheable("homeCache")
-    @GetMapping("/homes/{uuid}/homes/{name}")
+    @GetMapping("/players/{uuid}/homes/{name}")
     public Home oneHome(@PathVariable String uuid, @PathVariable String name) {
         return homesById(uuid).getHomeById(name);
     }
