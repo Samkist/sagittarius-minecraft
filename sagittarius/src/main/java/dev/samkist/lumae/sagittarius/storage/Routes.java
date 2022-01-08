@@ -3,38 +3,40 @@ package dev.samkist.lumae.sagittarius.storage;
 import java.util.List;
 
 import static dev.samkist.lumae.sagittarius.storage.RESTManager.*;
-import static dev.samkist.lumae.sagittarius.storage.Requests.*;
 
 public enum Routes {
 
-    PLAYERS_ALL(PLAYERS, List.of(), GET),
-    PLAYERS_NEW(PLAYERS, List.of(), POST),
-    PLAYERS_GET(PLAYERS + "/{uuid}", List.of("uuid"), GET),
-    PLAYERS_DELETE(PLAYERS + "/{uuid}", List.of("uuid"), DEL),
+    PLAYERS_ALL(PLAYERS, List.of()),
+    PLAYERS_NEW(PLAYERS, List.of()),
+    PLAYERS_GET(PLAYERS + "/{uuid}", List.of("uuid")),
+    PLAYERS_DELETE(PLAYERS + "/{uuid}", List.of("uuid")),
 
-    PLAYERS_HOMES(HOMES, List.of("uuid"), GET),
-    PLAYERS_NEW_HOME(HOMES, List.of("uuid"), POST),
-    PLAYERS_GET_HOME(HOMES + "/{name}", List.of("uuid", "name"), GET),
-    PLAYERS_DEL_HOME(HOMES + "/{name}", List.of("uuid", "name"), DEL),
+    PLAYERS_HOMES(HOMES, List.of("uuid")),
+    PLAYERS_NEW_HOME(HOMES, List.of("uuid")),
+    PLAYERS_GET_HOME(HOMES + "/{name}", List.of("uuid", "name")),
+    PLAYERS_DEL_HOME(HOMES + "/{name}", List.of("uuid", "name")),
 
-    FORMATS_CHAT_ALL(FORMATS_CHAT, List.of(), GET),
-    FORMATS_NEW_CHAT(FORMATS_CHAT, List.of(), POST),
-    FORMATS_GET_CHAT(FORMATS_CHAT + "/{id}", List.of("id"), GET),
-    FORMATS_DEL_CHAT(FORMATS_CHAT + "/{id}", List.of("id"), DEL),
+    FORMATS_CHAT_ALL(FORMATS_CHAT, List.of()),
+    FORMATS_NEW_CHAT(FORMATS_CHAT, List.of()),
+    FORMATS_GET_CHAT(FORMATS_CHAT + "/{id}", id),
+    FORMATS_DEL_CHAT(FORMATS_CHAT + "/{id}", id),
 
-    FORMATS_JOIN_LEAVE_ALL(FORMATS_JL, List.of(), GET),
-    FORMATS_NEW_JOIN_LEAVE(FORMATS_JL, List.of(), POST),
-    FORMATS_GET_JOIN_LEAVE(FORMATS_JL + "/{id}", List.of("id"), GET),
-    FORMATS_DEL_JOIN_LEAVE(FORMATS_JL + "/{id}", List.of("id"), DEL);
+    FORMATS_JOIN_LEAVE_ALL(FORMATS_JL, List.of()),
+    FORMATS_NEW_JOIN_LEAVE(FORMATS_JL, List.of()),
+    FORMATS_GET_JOIN_LEAVE(FORMATS_JL + "/{id}", id),
+    FORMATS_DEL_JOIN_LEAVE(FORMATS_JL + "/{id}", id),
+
+    WARPS_ALL(WARPS, List.of()),
+    WARPS_NEW(WARPS, List.of()),
+    WARPS_GET(WARPS + "/{id}", id),
+    WARPS_DEL(WARPS + "/{id}", id);
 
     private String route;
     private List<String> variables;
-    private Requests request;
 
-    Routes(String route, List<String> variables, Requests request) {
+    Routes(String route, List<String> variables) {
         this.route = route;
         this.variables = variables;
-        this.request = request;
     }
 
     public String getPopulatedRoute(List<String> values) {
@@ -51,9 +53,5 @@ public enum Routes {
 
     public List<String> getVariables() {
         return variables;
-    }
-
-    public Requests getRequest() {
-        return request;
     }
 }
