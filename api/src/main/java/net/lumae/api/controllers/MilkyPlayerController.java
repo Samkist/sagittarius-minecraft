@@ -1,18 +1,15 @@
 package net.lumae.api.controllers;
 
-import dev.samkist.lumae.sagittarius.data.models.Homes;
 import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
-import net.lumae.api.repository.HomesRepository;
+import net.lumae.api.ApiApplication;
 import net.lumae.api.repository.MilkyPlayerRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
-
-import javax.naming.OperationNotSupportedException;
 import java.util.List;
 
-@RestController
+@SagittariusController
 public class MilkyPlayerController {
     @Autowired
     private final MilkyPlayerRepository players;
@@ -26,26 +23,26 @@ public class MilkyPlayerController {
      */
 
     @Cacheable("playerCache")
-    @GetMapping(value = "/players")
+    @GetMapping("/players")
     public List<MilkyPlayer> all() {
         return players.findAll();
     }
 
     @Cacheable("playerCache")
-    @PostMapping(value = "/players")
+    @PostMapping("/players")
     public MilkyPlayer newMilkyPlayer(@RequestBody MilkyPlayer player) {
         return players.save(player);
     }
 
     @Cacheable("playerCache")
-    @GetMapping(value = "/players/{uuid}")
+    @GetMapping("/players/{uuid}")
     public MilkyPlayer one(@PathVariable String uuid) {
         return players.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
     }
 
     @Cacheable("playerCache")
-    @DeleteMapping(value = "/players/{uuid}")
+    @DeleteMapping("/players/{uuid}")
     public void delete(@PathVariable String uuid) {
         players.deleteById(uuid);
     }
