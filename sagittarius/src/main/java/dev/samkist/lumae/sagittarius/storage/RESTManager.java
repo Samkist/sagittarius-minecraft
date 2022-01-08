@@ -2,6 +2,7 @@ package dev.samkist.lumae.sagittarius.storage;
 
 import com.google.gson.Gson;
 import dev.samkist.lumae.sagittarius.Sagittarius;
+import dev.samkist.lumae.sagittarius.data.models.ChatFormat;
 import dev.samkist.lumae.sagittarius.data.models.Home;
 import dev.samkist.lumae.sagittarius.data.models.Homes;
 import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
@@ -102,6 +103,39 @@ public class RESTManager {
                         String.format("Critical error deleting Player Home: %s:%s", name, uuid)
                 ));
     }
+
+    public List<ChatFormat> getChatFormats() {
+        return Unirest.get(httpRequest(FORMATS_CHAT_ALL))
+                .asObject(new GenericType<List<ChatFormat>>(){})
+                .getBody();
+    }
+
+    public void saveChatFormat(ChatFormat format) {
+        Unirest.post(httpRequest(FORMATS_NEW_CHAT))
+                .body(gson.toJsonTree(format))
+                .asEmpty().ifFailure(failure ->
+                        plugin.getLogger().warning(
+                                String.format("Critical error saving Format: %s", format.getUid())
+                        ));
+    }
+
+    public Optional<ChatFormat> getChatFormat(String id) {
+        return Optional.ofNullable(
+                Unirest.get(httpRequest(FORMATS_GET_CHAT, id))
+                        .asObject(ChatFormat.class)
+                        .getBody()
+        );
+    }
+
+    public void deleteChatFormat(String id) {
+        Unirest.delete(httpRequest(FORMATS_DEL_CHAT, id))
+                .asEmpty().ifFailure(failure ->
+                        plugin.getLogger().warning(
+                                String.format("Critical error deleting ChatFormat: %s", id)
+                        ));
+    }
+
+
 
     public String httpRequest(String route) {
         return apiHost + route;
