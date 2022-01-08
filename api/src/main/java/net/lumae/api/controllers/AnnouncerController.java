@@ -12,7 +12,6 @@ import java.util.List;
 public class AnnouncerController {
     @Autowired
     private final AnnouncerRepository announcer;
-    private List<Announcement> loaded_announcements;
 
     public AnnouncerController(AnnouncerRepository announcer) {
         this.announcer = announcer;
@@ -28,34 +27,20 @@ public class AnnouncerController {
         return announcer.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(id, Announcement.scope)).getMessage();
     }
-    @GetMapping("/announcements/refresh")
-    public void refresh() {
-        List<Announcement> announcements = announcer.findAll();
-        for (int i = 0; i < announcements.size(); i++) {
-            for (Announcement announcement : announcements) {
-                if (announcement.uid == String.valueOf(i)) {
-                    loaded_announcements.add(i, announcement);
-                    break;
-                }
-            }
-        }
-    }
 
     @GetMapping("/announcements/length")
     public int size(@PathVariable String id) {
         return (int)announcer.count();
     }
 
-    @PostMapping("/announcement")
-    public int add(@RequestBody String message) {
-        announcer.insert(new Announcement(String.valueOf(loaded_announcements.size()), message));
-        refresh();
-        return loaded_announcements.size();
+    @PostMapping("/announcements")
+    public int add(@RequestBody String name, @RequestBody String message) {
+        announcer.insert(new Announcement(name, message));
+        return (int)announcer.count();
     }
 
-    @DeleteMapping("/time/played")
-    public void delete(@RequestBody String id) {
-        announcer.deleteById(id);
-        refresh();
+    @DeleteMapping("/announcements")
+    public void delete(@RequestBody String name) {
+        announcer.deleteById(name);
     }
 }
