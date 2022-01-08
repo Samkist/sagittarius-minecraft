@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 public class MilkyPlayer extends MilkyModel {
     private String lastUsername;
+    private String nickname;
     private Long balance;
     private Integer votes;
     private Integer secondsPlayed;
@@ -13,6 +14,7 @@ public class MilkyPlayer extends MilkyModel {
 
     public MilkyPlayer(String id,
                        String lastUsername,
+                       String nickname,
                        Long balance,
                        Integer votes,
                        Integer secondsPlayed,
@@ -20,6 +22,7 @@ public class MilkyPlayer extends MilkyModel {
                        SimpleLocation lastLocation) {
         super(id, MilkyPlayer.scope);
         this.lastUsername = lastUsername;
+        this.nickname = nickname;
         this.balance = balance;
         this.votes = votes;
         this.secondsPlayed = secondsPlayed;
@@ -30,6 +33,7 @@ public class MilkyPlayer extends MilkyModel {
     public MilkyPlayer(Player player) {
         setUid(player.getUniqueId().toString());
         setLastUsername(player.getName());
+        setNickname(player.displayName().examinableName());
         setBalance(0L);
         setVotes(0);
         setSecondsPlayed(0);
@@ -47,6 +51,14 @@ public class MilkyPlayer extends MilkyModel {
 
     public void setLastUsername(String lastUsername) {
         this.lastUsername = lastUsername;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public Long getBalance() {

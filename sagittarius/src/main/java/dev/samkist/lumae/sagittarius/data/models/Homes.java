@@ -9,6 +9,10 @@ public class Homes extends MilkyModel {
     private Map<String, SimpleLocation> locationMap;
     public static final String scope = "homes";
 
+    public Homes() {
+
+    }
+
     public Homes(String uid, Map<String, SimpleLocation> locationMap) {
         super(uid, scope);
         this.locationMap = locationMap;
