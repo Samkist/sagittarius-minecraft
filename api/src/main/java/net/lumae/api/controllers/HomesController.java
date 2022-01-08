@@ -48,13 +48,13 @@ public class HomesController {
     }
 
     @Cacheable("homeCache")
-    @PostMapping("/homes/{uuid}/homes/{name}")
+    @PostMapping("/homes/{uuid}/homes")
     public Homes newHome(@PathVariable String uuid, @RequestBody Home home) {
         Homes playerHomes = homesById(uuid);
         playerHomes.addHome(home);
         return homes.save(playerHomes);
     }
-    
+
     @Cacheable("homeCache")
     @GetMapping("/homes/{uuid}/homes/{name}")
     public Home oneHome(@PathVariable String uuid, @PathVariable String name) {
