@@ -30,6 +30,8 @@ public class CacheConfig {
                 .withCacheConfiguration("chatFormatCache",
                         RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(cacheCooldown)))
                 .withCacheConfiguration("joinLeaveFormatCache",
+                        RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(cacheCooldown)))
+                .withCacheConfiguration("warpCache",
                         RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(cacheCooldown)));
     }
 }
