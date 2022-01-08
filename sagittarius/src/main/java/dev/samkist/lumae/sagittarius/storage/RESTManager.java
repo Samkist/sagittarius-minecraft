@@ -2,9 +2,9 @@ package dev.samkist.lumae.sagittarius.storage;
 
 public class RESTManager {
 
-    private String apiRoute;
+    private String apiHost;
 
-    public RESTManager(String apiRoute) {
-        this.apiRoute = apiRoute;
+    public RESTManager(String apiHost) {
+        this.apiHost = apiHost;
     }
 }
