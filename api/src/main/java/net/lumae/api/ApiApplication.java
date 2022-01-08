@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ApiApplication {
 
+    public static final String sagittariusRoute = "/sagittarius";
+
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
     }
