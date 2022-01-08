@@ -50,7 +50,10 @@ public class HomesController {
     @Cacheable("homeCache")
     @DeleteMapping("/players/{uuid}/homes/{name}")
     public void delete(@PathVariable String uuid, @PathVariable String name) {
-        homes.deleteById(uuid);
+        Homes playerHomes = homes.findById(uuid)
+                .orElseThrow(() -> new RecordNotFoundException(uuid, Homes.scope));
+        playerHomes.removeHome(name);
+        homes.save(playerHomes);
     } //TODO: Add deleteHomeByName(uuid, name) function
 
     @Cacheable("homeCache")

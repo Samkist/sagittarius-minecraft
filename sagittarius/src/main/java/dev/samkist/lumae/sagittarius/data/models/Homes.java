@@ -25,4 +25,16 @@ public class Homes extends MilkyModel {
     public void setLocationMap(Map<String, SimpleLocation> locationMap) {
         this.locationMap = locationMap;
     }
+
+    public Home getHomeById(String id) {
+        return new Home(id, locationMap.get(id));
+    }
+
+    public void removeHome(String id) {
+        locationMap.remove(id);
+    }
+
+    public void addHome(Home home) {
+        locationMap.put(home.uid, home.getLocation());
+    }
 }
