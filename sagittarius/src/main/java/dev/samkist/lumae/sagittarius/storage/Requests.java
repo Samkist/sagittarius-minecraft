@@ -4,5 +4,5 @@ public enum Requests {
 
     GET,
     POST,
-    DELETE
+    DEL
 }

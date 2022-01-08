@@ -53,12 +53,6 @@ public class HomesController {
         homes.save(playerHomes);
     } //TODO: Add deleteHomeByName(uuid, name) function
 
-    @Cacheable("homeCache")
-    @DeleteMapping("/players/{uuid}/homes")
-    public void delete(@PathVariable String uuid) {
-        homes.deleteById(uuid);
-    }
-
     private Homes homesById(String uuid) {
         return homes.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, Homes.scope));
