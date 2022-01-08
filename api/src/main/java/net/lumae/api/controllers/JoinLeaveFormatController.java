@@ -1,6 +1,5 @@
 package net.lumae.api.controllers;
 
-import dev.samkist.lumae.sagittarius.data.models.ChatFormat;
 import dev.samkist.lumae.sagittarius.data.models.JoinLeaveFormat;
 import net.lumae.api.repository.JoinLeaveFormatRepository;
 import net.lumae.api.repository.RecordNotFoundException;
