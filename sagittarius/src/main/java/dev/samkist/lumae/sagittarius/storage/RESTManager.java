@@ -2,9 +2,13 @@ package dev.samkist.lumae.sagittarius.storage;
 
 public class RESTManager {
 
-    private String apiRoute;
+    private String apiHost;
+    public static final String PLAYERS = "/players";
+    public static final String HOMES = "/players/{uuid}/homes";
+    public static final String FORMATS_CHAT = "/formats/chat";
+    public static final String FORMATS_JL = "/formats/join-leave";
 
-    public RESTManager(String apiRoute) {
-        this.apiRoute = apiRoute;
+    public RESTManager(String apiHost) {
+        this.apiHost = apiHost;
     }
 }
