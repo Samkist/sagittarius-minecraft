@@ -2,6 +2,7 @@ package net.lumae.api.controllers;
 
 import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
 import net.lumae.api.repository.MilkyPlayerRepository;
+import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
@@ -27,7 +28,9 @@ public class TimeController {
     @Cacheable("playerCache")
     @GetMapping("/time/played/{uuid}")
     public int get(@PathVariable String uuid) {
-        return players.findById(uuid).get().getSecondsPlayed();
+        return players.findById(uuid)
+                .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope))
+                .getSecondsPlayed();
     }
 
     @Cacheable("playerCache")
