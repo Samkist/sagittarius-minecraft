@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import dev.samkist.lumae.sagittarius.Sagittarius;
 import dev.samkist.lumae.sagittarius.data.models.*;
 import dev.samkist.lumae.sagittarius.storage.RESTManager;
+import kong.unirest.HttpResponse;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +33,14 @@ public class Tests {
 
     public void logApiStatus() {
         logger.info(restManager.status());
+    }
+
+    public void tryPrintApiPlayerResult(Player player) {
+        HttpResponse<MilkyPlayer> mp = restManager.getMilkyPlayer(player.getUniqueId().toString());
+        mp.ifSuccess(succ -> {
+            logger.info("Successfully loaded " + player.name());
+            logger.info(gson.toJson(succ.getBody()));
+        }).ifFailure(fail -> logger.severe(String.format("Failure: %d : %s", fail.getStatus(), fail.getStatusText())));
     }
 
     public List<String> printAndReturnAllDefaults() {

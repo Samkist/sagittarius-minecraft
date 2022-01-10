@@ -41,103 +41,84 @@ public class RESTManager {
                 .asString().getBody();
     }
 
-    public List<MilkyPlayer> getAllPlayers() {
+    public HttpResponse<List<MilkyPlayer>> getAllPlayers() {
         return Unirest.get(httpRequest(PLAYERS_ALL))
-                .asObject(new GenericType<List<MilkyPlayer>>(){})
-                .getBody();
+                .asObject(new GenericType<>() {
+                });
     }
 
-    public void saveMilkyPlayer(MilkyPlayer player) {
-        Unirest.post(httpRequest(PLAYERS_NEW))
+    public HttpResponse<MilkyPlayer> saveMilkyPlayer(MilkyPlayer player) {
+        return Unirest.post(httpRequest(PLAYERS_NEW))
                 .body(gson.toJsonTree(player))
-                .asEmpty().ifFailure(failure ->
+                .asObject(MilkyPlayer.class);/*.ifFailure(failure ->
                         plugin.getLogger().warning(
                                 String.format("Critical error saving Player: %s:%s", player.getLastUsername(), player.getUid())
-                        ));
+                        ));*/
     }
 
-    public Optional<MilkyPlayer> getMilkyPlayer(String uuid) {
-        return Optional.ofNullable(
-                Unirest.get(httpRequest(PLAYERS_GET, uuid))
-                        .asObject(MilkyPlayer.class)
-                        .getBody()
-        );
+    public HttpResponse<MilkyPlayer> getMilkyPlayer(String uuid) {
+        return Unirest.get(httpRequest(PLAYERS_GET))
+                .routeParam("uuid", uuid)
+                .asObject(MilkyPlayer.class);
     }
 
-    public void deleteMilkyPlayer(String uuid) {
-        Unirest.delete(httpRequest(PLAYERS_DELETE, uuid)).asEmpty().ifFailure(failure ->
-                plugin.getLogger().warning(
-                        String.format("Critical error deleting Player: %s", uuid)
-                ));
+    public HttpResponse deleteMilkyPlayer(String uuid) {
+        return Unirest.delete(httpRequest(PLAYERS_DELETE))
+                .routeParam("uuid", uuid)
+                .asEmpty();
     }
 
-    public Optional<Homes> getPlayerHomes(String uuid) {
-        return Optional.ofNullable(Unirest.get(httpRequest(PLAYERS_HOMES, uuid))
-                .asObject(Homes.class)
-                .getBody());
+    public HttpResponse<Homes> getPlayerHomes(String uuid) {
+        return Unirest.get(httpRequest(PLAYERS_HOMES, uuid))
+                .routeParam("uuid", uuid)
+                .asObject(Homes.class);
     }
 
-    public Optional<Home> addPlayerHome(String uuid, Home home) {
-        HttpResponse result = Unirest.post(httpRequest(PLAYERS_NEW_HOME, uuid))
+    public HttpResponse<Homes> addPlayerHome(String uuid, Home home) {
+        return Unirest.post(httpRequest(PLAYERS_NEW_HOME, uuid))
+                .routeParam("uuid", uuid)
                 .body(gson.toJsonTree(home))
-                .asEmpty();/*.ifFailure(failure ->
+                .asObject(Homes.class);/*.ifFailure(failure ->
                         plugin.getLogger().warning(
                                 String.format("Critical error saving Player Home: %s:%s", home.uid, uuid)
                         ));*/
-        if(result.isSuccess()) {
-            return Optional.ofNullable(home);
-        } else {
-            plugin.getLogger().warning(
-                    String.format("Critical error saving Player Home: %s:%s", home.uid, uuid)
-            );
-            return Optional.empty();
-        }
     }
 
-    public Optional<Home> getPlayerHome(String uuid, String name) {
-        return Optional.ofNullable(
-                Unirest.get(httpRequest(PLAYERS_GET_HOME, uuid, name))
-                        .asObject(Home.class)
-                        .getBody()
-        );
+    public HttpResponse<Home> getPlayerHome(String uuid, String name) {
+        return Unirest.get(httpRequest(PLAYERS_GET_HOME, uuid, name))
+                .routeParam("uuid", uuid)
+                .routeParam("name", name)
+                .asObject(Home.class);
     }
 
-    public void deletePlayerHome(String uuid, String name) {
-        Unirest.delete(httpRequest(PLAYERS_DEL_HOME, uuid, name)).asEmpty().ifFailure(failure ->
-                plugin.getLogger().warning(
-                        String.format("Critical error deleting Player Home: %s:%s", name, uuid)
-                ));
+    public HttpResponse deletePlayerHome(String uuid, String name) {
+        return Unirest.delete(httpRequest(PLAYERS_DEL_HOME, uuid, name))
+                .routeParam("uuid", uuid)
+                .routeParam("name", name)
+                .asEmpty();
     }
 
-    public List<ChatFormat> getChatFormats() {
+    public HttpResponse<List<ChatFormat>> getChatFormats() {
         return Unirest.get(httpRequest(FORMATS_CHAT_ALL))
-                .asObject(new GenericType<List<ChatFormat>>(){})
-                .getBody();
+                .asObject(new GenericType<List<ChatFormat>>(){});
     }
 
-    public void saveChatFormat(ChatFormat format) {
-        Unirest.post(httpRequest(FORMATS_NEW_CHAT))
+    public HttpResponse<ChatFormat> saveChatFormat(ChatFormat format) {
+        return Unirest.post(httpRequest(FORMATS_NEW_CHAT))
                 .body(gson.toJsonTree(format))
-                .asEmpty().ifFailure(failure ->
-                        plugin.getLogger().warning(
-                                String.format("Critical error saving Format: %s", format.getUid())
-                        ));
+                .asObject(ChatFormat.class);
     }
 
-    public Optional<ChatFormat> getChatFormat(String id) {
-        return Optional.ofNullable(
-                Unirest.get(httpRequest(FORMATS_GET_CHAT, id))
-                        .asObject(ChatFormat.class)
-                        .getBody()
-        );
+    public HttpResponse<ChatFormat> getChatFormat(String id) {
+        return Unirest.get(httpRequest(FORMATS_GET_CHAT, id))
+                        .routeParam("id", id)
+                        .asObject(ChatFormat.class);
     }
 
-    public void deleteChatFormat(String id) {
-        Unirest.delete(httpRequest(FORMATS_DEL_CHAT, id))
-                .asEmpty().ifFailure(failure ->
-                        plugin.getLogger().warning(
-                                String.format("Critical error deleting ChatFormat: %s", id)
-                        ));
+    public HttpResponse deleteChatFormat(String id) {
+        return Unirest.delete(httpRequest(FORMATS_DEL_CHAT, id))
+                .routeParam("id", id)
+                .asEmpty();
     }
 
 

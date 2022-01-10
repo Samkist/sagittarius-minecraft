@@ -22,7 +22,7 @@ public class Sagittarius extends JavaPlugin {
     private SagittariusApi sagittariusApi;
     private RESTManager restManager;
     private Tests tests;
-    private static final String apiRoute = "http://198.55.58.21/";
+    private static final String apiRoute = "http://198.55.58.21";
     public static final long LAST_START_TIME = System.currentTimeMillis();
 
     @Override

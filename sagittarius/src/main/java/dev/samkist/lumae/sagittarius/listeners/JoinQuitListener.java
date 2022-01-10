@@ -21,7 +21,7 @@ public class JoinQuitListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         tests.logApiStatus();
-        tests.printAndReturnAllDefaults();
+        tests.tryPrintApiPlayerResult(event.getPlayer());
     }
 
     @EventHandler
