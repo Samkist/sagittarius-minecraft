@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import static dev.samkist.lumae.sagittarius.storage.Routes.*;
 
+@SuppressWarnings("unchecked")
 public class RESTManager {
 
     private final Sagittarius plugin;
@@ -33,6 +34,11 @@ public class RESTManager {
         this.plugin = plugin;
         this.gson = gson;
         this.apiHost = apiHost;
+    }
+
+    public String status() {
+        return Unirest.get(apiHost)
+                .asString().getBody();
     }
 
     public List<MilkyPlayer> getAllPlayers() {

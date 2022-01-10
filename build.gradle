@@ -32,12 +32,9 @@ subprojects {
     dependencies {
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
-        implementation("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
         compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.7.0";
-        implementation 'com.iridium:IridiumColorAPI:1.0.6'
+        compileOnly 'com.iridium:IridiumColorAPI:1.0.6'
         //implementation 'org.mongodb:mongodb-driver-sync:4.3.3'
-        implementation 'org.slf4j:slf4j-api:1.7.32'
-        implementation 'ch.qos.logback:logback-classic:1.2.6'
         implementation 'com.google.code.gson:gson:2.8.9'
         implementation 'com.konghq:unirest-java:3.11.09'
         compileOnly 'me.clip:placeholderapi:2.10.10'
@@ -53,5 +50,17 @@ subprojects {
 
     java {
         toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+project(':api') {
+    dependencies {
+        implementation("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+    }
+}
+
+project(':sagittarius') {
+    dependencies {
+        compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     }
 }

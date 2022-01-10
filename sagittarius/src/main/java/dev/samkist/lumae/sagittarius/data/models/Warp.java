@@ -13,7 +13,7 @@ public class Warp extends MilkyModel {
     }
 
     public Warp(String uid, String scope, SimpleLocation location, String ownerUuid, String permission, Boolean enabled) {
-        super(uid, scope);
+        super(uid, Warp.scope);
         this.location = location;
         this.ownerUuid = ownerUuid;
         this.permission = permission;
