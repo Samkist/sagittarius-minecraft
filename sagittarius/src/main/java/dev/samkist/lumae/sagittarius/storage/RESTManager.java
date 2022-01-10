@@ -7,7 +7,6 @@ import dev.samkist.lumae.sagittarius.data.models.Home;
 import dev.samkist.lumae.sagittarius.data.models.Homes;
 import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
 import kong.unirest.GenericType;
-import kong.unirest.HttpRequest;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
