@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@SagittariusController
+@RestController
 public class PositionUpdaterController {
     @Autowired
     private final MilkyPlayerRepository players;
@@ -21,7 +21,7 @@ public class PositionUpdaterController {
     }
 
     @Cacheable("playerCache")
-    @GetMapping("/pos/")
+    @GetMapping("/pos")
     public List<MilkyPlayer> all() {
         return players.findAll();
     }
@@ -33,7 +33,7 @@ public class PositionUpdaterController {
     }
 
     @Cacheable("playerCache")
-    @PostMapping("/pos/")
+    @PostMapping("/pos")
     public void set(@RequestBody String uuid, @RequestBody SimpleLocation loc) {
         MilkyPlayer p = players.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
@@ -42,7 +42,7 @@ public class PositionUpdaterController {
     }
 
     @Cacheable("playerCache")
-    @DeleteMapping("/pos/")
+    @DeleteMapping("/pos")
     public void delete(@RequestBody String uuid, @RequestBody Long amount) {
         players.deleteById(uuid);
     }

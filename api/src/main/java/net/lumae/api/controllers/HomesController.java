@@ -2,23 +2,28 @@ package net.lumae.api.controllers;
 
 import dev.samkist.lumae.sagittarius.data.models.Home;
 import dev.samkist.lumae.sagittarius.data.models.Homes;
-import net.lumae.api.ApiApplication;
 import net.lumae.api.repository.HomesRepository;
+import net.lumae.api.repository.MilkyPlayerRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Optional;
 
-@SagittariusController
+@RestController
 public class HomesController {
 
     @Autowired
     private final HomesRepository homes;
 
-    public HomesController(HomesRepository homes) {
+    @Autowired
+    private final MilkyPlayerRepository players;
+
+    public HomesController(HomesRepository homes, MilkyPlayerRepository players) {
         this.homes = homes;
+        this.players = players;
     }
 
     /*
@@ -26,13 +31,13 @@ public class HomesController {
      */
 
     @Cacheable("homeCache")
-    @GetMapping("/players/{uuid}/homes/")
+    @GetMapping("/players/{uuid}/homes")
     public Homes one(@PathVariable String uuid) {
         return homesById(uuid);
     }
 
     @Cacheable("homeCache")
-    @PostMapping("/players/{uuid}/homes/")
+    @PostMapping("/players/{uuid}/homes")
     public Homes newHome(@PathVariable String uuid, @RequestBody Home home) {
         Homes playerHomes = homesById(uuid);
         playerHomes.addHome(home);
@@ -54,7 +59,16 @@ public class HomesController {
     } //TODO: Add deleteHomeByName(uuid, name) function
 
     private Homes homesById(String uuid) {
-        return homes.findById(uuid)
-                .orElseThrow(() -> new RecordNotFoundException(uuid, Homes.scope));
+        if(players.existsById(uuid)) {
+            if(!homes.existsById(uuid)) {
+                Homes empty = new Homes(uuid, new HashMap<>());
+                homes.save(empty);
+                return empty;
+            } else {
+                return homes.findById(uuid).orElse(null);
+            }
+        } else {
+            return null;
+        }
     }
 }

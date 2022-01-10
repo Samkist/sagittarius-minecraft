@@ -1,7 +1,6 @@
 task wrapper(type: Wrapper) {
     gradleVersion = '7.1'
 }
-
 shadowJar {
     destinationDirectory = file('build/libs/')
     archiveClassifier=null

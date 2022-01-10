@@ -20,7 +20,7 @@ public class TimeController {
     }
 
     @Cacheable("playerCache")
-    @GetMapping("/time/played/")
+    @GetMapping("/time/played")
     public List<MilkyPlayer> all() {
         return players.findAll(Sort.by(Sort.Direction.DESC, "secondsPlayed"));
     }
@@ -34,7 +34,7 @@ public class TimeController {
     }
 
     @Cacheable("playerCache")
-    @PostMapping("/time/played/")
+    @PostMapping("/time/played")
     public String add(@RequestBody List<String> activePlayers, @RequestBody int seconds) {
         for (String uuid : activePlayers) {
             MilkyPlayer p = players.findById(uuid)

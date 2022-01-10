@@ -6,14 +6,11 @@ import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@SagittariusController
+@RestController
 public class EconomyController {
     @Autowired
     private final MilkyPlayerRepository players;
@@ -23,7 +20,7 @@ public class EconomyController {
     }
 
     @Cacheable("playerCache")
-    @GetMapping("/economy/")
+    @GetMapping("/economy")
     public List<MilkyPlayer> all() {
         return players.findAll(Sort.by(Sort.Direction.DESC, "balance"));
     }

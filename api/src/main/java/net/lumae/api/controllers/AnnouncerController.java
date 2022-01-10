@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@SagittariusController
+@RestController
 public class AnnouncerController {
     @Autowired
     private final AnnouncerRepository announcer;

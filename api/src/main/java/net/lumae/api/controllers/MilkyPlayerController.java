@@ -9,7 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@SagittariusController
+@RestController
 public class MilkyPlayerController {
     @Autowired
     private final MilkyPlayerRepository players;
