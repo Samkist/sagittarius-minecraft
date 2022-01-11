@@ -8,12 +8,8 @@ import dev.samkist.lumae.sagittarius.data.models.Homes;
 import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
 import kong.unirest.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
-import static dev.samkist.lumae.sagittarius.storage.RequestType.GET;
 import static dev.samkist.lumae.sagittarius.storage.Routes.*;
 
 @SuppressWarnings("unchecked")
