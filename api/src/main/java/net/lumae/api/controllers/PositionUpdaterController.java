@@ -10,6 +10,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
+class PosContext {
+    public PosContext(String uuid, SimpleLocation location) {
+        this.uuid = uuid;
+        this.location = location;
+    }
+    String uuid;
+    SimpleLocation location;
+}
 
 @RestController
 public class PositionUpdaterController {
@@ -22,8 +32,24 @@ public class PositionUpdaterController {
 
     @Cacheable("playerCache")
     @GetMapping("/pos")
-    public List<MilkyPlayer> all() {
-        return players.findAll();
+    public List<PosContext> all() {
+        List<PosContext> positions = null;
+        for (MilkyPlayer p : players.findAll()) {
+            positions.add(new PosContext(p.uid, p.getLastLocation()));
+        }
+        return positions;
+    }
+
+    @Cacheable("playerCache")
+    @PostMapping("/pos")
+    public List<PosContext> allOnline(@RequestBody List<String> uuids) {
+        List<PosContext> positions = null;
+        Iterable res = players.findAllById(uuids);
+        res.forEach(obj -> {
+            MilkyPlayer p = ((MilkyPlayer) obj);
+            positions.add(new PosContext(p.uid, p.getLastLocation()));
+        });
+        return positions;
     }
 
     @Cacheable("playerCache")
@@ -33,8 +59,8 @@ public class PositionUpdaterController {
     }
 
     @Cacheable("playerCache")
-    @PostMapping("/pos")
-    public void set(@RequestBody String uuid, @RequestBody SimpleLocation loc) {
+    @PostMapping("/pos/{uuid}")
+    public void set(@RequestParam String uuid, @RequestBody SimpleLocation loc) {
         MilkyPlayer p = players.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
         p.setLastLocation(loc);
@@ -42,8 +68,8 @@ public class PositionUpdaterController {
     }
 
     @Cacheable("playerCache")
-    @DeleteMapping("/pos")
-    public void delete(@RequestBody String uuid, @RequestBody Long amount) {
+    @DeleteMapping("/pos/{uuid}")
+    public void delete(@RequestParam String uuid) {
         players.deleteById(uuid);
     }
 }
