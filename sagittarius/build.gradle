@@ -10,5 +10,4 @@ shadowJar {
             attributes("Main-Class": "dev.samkist.lumae.sagittarius.Sagittarius")
         }
     }
-
 }

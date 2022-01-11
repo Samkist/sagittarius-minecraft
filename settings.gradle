@@ -1,4 +1,5 @@
 rootProject.name = 'lumae'
 include 'sagittarius'
 include 'api'
+include 'orion'
 

@@ -8,12 +8,10 @@ import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class DataManager {
 
-    private static final Sagittarius plugin = JavaPlugin.getPlugin(Sagittarius.class);
     private Gson gson;
     private HashMap<UUID, MilkyPlayer> players = new HashMap<>();
     private HashMap<String, ChatFormat> chatFormats = new HashMap<>();
