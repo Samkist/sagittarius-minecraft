@@ -7,6 +7,8 @@ public class MilkyPlayer extends MilkyModel {
     private String nickname;
     private Long balance;
     private Integer votes;
+    private Integer kills;
+    private Integer deaths;
     private Integer secondsPlayed;
     private Long joinDate;
     private SimpleLocation lastLocation;
@@ -75,6 +77,31 @@ public class MilkyPlayer extends MilkyModel {
 
     public void setVotes(Integer votes) {
         this.votes = votes;
+    }
+
+    public Integer getKills() {
+        return this.kills;
+    }
+
+    public void setKills(Integer kills) {
+        this.kills = kills;
+    }
+
+    public Integer getDeaths() {
+        return this.deaths;
+    }
+
+    public void setDeaths(Integer deaths) {
+        this.deaths = deaths;
+    }
+
+    public double getKdr() {
+        return ((double)this.kills)/this.deaths;
+    }
+
+    public void setKd(Integer kills, Integer deaths) {
+        this.kills = kills;
+        this.deaths = deaths;
     }
 
     public Integer getSecondsPlayed() {

@@ -65,4 +65,13 @@ public class EconomyController {
         p.setBalance(amount);
         players.save(p);
     }
+
+    @Cacheable("playerCache")
+    @DeleteMapping("/economy/{uuid}")
+    public void delete(@PathVariable String uuid) {
+        MilkyPlayer p = players.findById(uuid)
+                .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
+        p.setBalance(0L);
+        players.save(p);
+    }
 }
