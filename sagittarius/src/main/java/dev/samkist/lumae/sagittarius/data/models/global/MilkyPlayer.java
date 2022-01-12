@@ -1,5 +1,6 @@
-package dev.samkist.lumae.sagittarius.data.models;
+package dev.samkist.lumae.sagittarius.data.models.global;
 
+import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 import org.bukkit.entity.Player;
 
 public class MilkyPlayer extends MilkyModel {
@@ -7,11 +8,9 @@ public class MilkyPlayer extends MilkyModel {
     private String nickname;
     private Long balance;
     private Integer votes;
-    private Integer kills;
-    private Integer deaths;
     private Integer secondsPlayed;
     private Long joinDate;
-    private SimpleLocation lastLocation;
+    private ServerLocation lastLocation;
     public static final String scope = "players";
 
     public MilkyPlayer(String id,
@@ -21,7 +20,7 @@ public class MilkyPlayer extends MilkyModel {
                        Integer votes,
                        Integer secondsPlayed,
                        Long joinDate,
-                       SimpleLocation lastLocation) {
+                       ServerLocation lastLocation) {
         super(id, MilkyPlayer.scope);
         this.lastUsername = lastUsername;
         this.nickname = nickname;
@@ -35,12 +34,12 @@ public class MilkyPlayer extends MilkyModel {
     public MilkyPlayer(Player player) {
         setUid(player.getUniqueId().toString());
         setLastUsername(player.getName());
-        setNickname(player.displayName().examinableName());
+        setNickname(player.getName());
         setBalance(0L);
         setVotes(0);
         setSecondsPlayed(0);
         setJoinDate(System.currentTimeMillis());
-        setLastLocation(new SimpleLocation(player.getLocation()));
+        setLastLocation(new ServerLocation("survival", player.getLocation()));
     }
 
     public MilkyPlayer() {
@@ -79,31 +78,6 @@ public class MilkyPlayer extends MilkyModel {
         this.votes = votes;
     }
 
-    public Integer getKills() {
-        return this.kills;
-    }
-
-    public void setKills(Integer kills) {
-        this.kills = kills;
-    }
-
-    public Integer getDeaths() {
-        return this.deaths;
-    }
-
-    public void setDeaths(Integer deaths) {
-        this.deaths = deaths;
-    }
-
-    public double getKdr() {
-        return ((double)this.kills)/this.deaths;
-    }
-
-    public void setKd(Integer kills, Integer deaths) {
-        this.kills = kills;
-        this.deaths = deaths;
-    }
-
     public Integer getSecondsPlayed() {
         return secondsPlayed;
     }
@@ -120,11 +94,11 @@ public class MilkyPlayer extends MilkyModel {
         this.joinDate = joinDate;
     }
 
-    public SimpleLocation getLastLocation() {
+    public ServerLocation getLastLocation() {
         return lastLocation;
     }
 
-    public void setLastLocation(SimpleLocation lastLocation) {
+    public void setLastLocation(ServerLocation lastLocation) {
         this.lastLocation = lastLocation;
     }
 }

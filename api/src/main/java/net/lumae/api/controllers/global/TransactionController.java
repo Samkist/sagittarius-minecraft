@@ -1,4 +1,4 @@
-package net.lumae.api.controllers;
+package net.lumae.api.controllers.global;
 
 import dev.samkist.lumae.sagittarius.data.models.Transaction;
 import net.lumae.api.repository.RecordNotFoundException;

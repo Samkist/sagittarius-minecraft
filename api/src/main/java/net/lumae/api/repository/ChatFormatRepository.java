@@ -1,6 +1,6 @@
 package net.lumae.api.repository;
 
-import dev.samkist.lumae.sagittarius.data.models.ChatFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

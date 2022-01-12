@@ -7,7 +7,7 @@ plugins {
 subprojects {
 
     group = 'dev.samkist'
-    version = '0.3.0-SNAPSHOT'
+    version = '0.4.0-SNAPSHOT'
 
     apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: 'java'
@@ -60,6 +60,12 @@ project(':api') {
 }
 
 project(':sagittarius') {
+    dependencies {
+        compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+    }
+}
+
+project(':orion') {
     dependencies {
         compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     }

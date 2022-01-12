@@ -2,10 +2,10 @@ package dev.samkist.lumae.sagittarius.storage;
 
 import com.google.gson.Gson;
 import dev.samkist.lumae.sagittarius.Sagittarius;
-import dev.samkist.lumae.sagittarius.data.models.ChatFormat;
-import dev.samkist.lumae.sagittarius.data.models.Home;
-import dev.samkist.lumae.sagittarius.data.models.Homes;
-import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
+import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
+import dev.samkist.lumae.sagittarius.data.models.gamemode.Home;
+import dev.samkist.lumae.sagittarius.data.models.gamemode.Homes;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 import kong.unirest.*;
 
 import java.util.List;
@@ -18,12 +18,19 @@ public class RESTManager {
     private final Sagittarius plugin;
     private final String apiHost;
     private final HttpResponseGenerator generator;
+    public static final String SERVERS = "/servers/{server}";
+
+    //GLOBAL
+
     public static final String PLAYERS = "/players";
-    public static final String HOMES = "/players/{uuid}/homes";
     public static final String FORMATS_CHAT = "/formats/chat";
     public static final String FORMATS_JL = "/formats/join-leave";
-    public static final String ECONOMY = "/economy";
-    public static final String WARPS = "/warps";
+
+    // PER SERVER
+
+    public static final String HOMES = SERVERS + "/players/{uuid}/homes";
+    public static final String ECONOMY = SERVERS + "/economy";
+    public static final String WARPS = SERVERS + "/warps";
     public static final List<String> id = List.of("id");
 
     public RESTManager(Sagittarius plugin, Gson gson, String apiHost) {

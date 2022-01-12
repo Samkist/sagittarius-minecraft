@@ -1,4 +1,4 @@
-package dev.samkist.lumae.sagittarius.data.models;
+package dev.samkist.lumae.sagittarius.data.models.global;
 
 
 import java.util.Map;

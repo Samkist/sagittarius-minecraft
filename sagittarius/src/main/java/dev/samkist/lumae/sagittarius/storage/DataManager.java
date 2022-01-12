@@ -1,11 +1,9 @@
 package dev.samkist.lumae.sagittarius.storage;
 
 import com.google.gson.Gson;
-import dev.samkist.lumae.sagittarius.Sagittarius;
-import dev.samkist.lumae.sagittarius.data.models.ChatFormat;
-import dev.samkist.lumae.sagittarius.data.models.JoinLeaveFormat;
-import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
-import org.bukkit.plugin.java.JavaPlugin;
+import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 
 import java.util.HashMap;
 import java.util.UUID;

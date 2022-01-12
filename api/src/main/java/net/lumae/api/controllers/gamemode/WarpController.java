@@ -1,7 +1,6 @@
-package net.lumae.api.controllers;
+package net.lumae.api.controllers.gamemode;
 
-import dev.samkist.lumae.sagittarius.data.models.Homes;
-import dev.samkist.lumae.sagittarius.data.models.Warp;
+import dev.samkist.lumae.sagittarius.data.models.gamemode.Warp;
 import net.lumae.api.repository.RecordNotFoundException;
 import net.lumae.api.repository.WarpRepository;
 import org.springframework.beans.factory.annotation.Autowired;

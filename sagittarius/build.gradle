@@ -1,13 +1,3 @@
 task wrapper(type: Wrapper) {
     gradleVersion = '7.1'
 }
-shadowJar {
-    destinationDirectory = file('build/libs/')
-    archiveClassifier=null
-    minimize()
-    dependencies {
-        manifest {
-            attributes("Main-Class": "dev.samkist.lumae.sagittarius.Sagittarius")
-        }
-    }
-}

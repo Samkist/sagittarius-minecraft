@@ -2,7 +2,13 @@ package dev.samkist.lumae.sagittarius.test;
 
 import com.google.gson.Gson;
 import dev.samkist.lumae.sagittarius.Sagittarius;
-import dev.samkist.lumae.sagittarius.data.models.*;
+import dev.samkist.lumae.sagittarius.data.models.gamemode.Home;
+import dev.samkist.lumae.sagittarius.data.models.gamemode.Homes;
+import dev.samkist.lumae.sagittarius.data.models.gamemode.SimpleLocation;
+import dev.samkist.lumae.sagittarius.data.models.gamemode.Warp;
+import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 import dev.samkist.lumae.sagittarius.storage.RESTManager;
 import kong.unirest.HttpResponse;
 import org.bukkit.entity.Player;
@@ -14,21 +20,20 @@ import java.util.logging.Logger;
 
 public class Tests {
 
-    private final Sagittarius plugin;
+    private final Sagittarius apiCore;
     private final RESTManager restManager;
     private final Gson gson;
-    private final Logger logger;
+    private final Logger logger = Logger.getGlobal();
     /**
      * Samkist
      */
     private final String testingUUID = "9a96c347-7424-40fe-9fcd-cff5b8f706e0";
 
 
-    public Tests(Sagittarius plugin, RESTManager restManager) {
-        this.plugin = plugin;
+    public Tests(Sagittarius apiCore, RESTManager restManager) {
+        this.apiCore = apiCore;
         this.restManager = restManager;
-        this.gson = plugin.gson;
-        this.logger = plugin.getLogger();
+        this.gson = apiCore.gson;
     }
 
     public void logApiStatus() {
@@ -41,6 +46,11 @@ public class Tests {
             logger.info("Successfully loaded " + player.name());
             logger.info(gson.toJson(succ.getBody()));
         }).ifFailure(fail -> logger.severe(String.format("Failure: %d : %s", fail.getStatus(), fail.getStatusText())));
+    }
+
+    public void printPlayerJson(Player player) {
+        MilkyPlayer p = new MilkyPlayer(player);
+        logger.info(gson.toJson(p));
     }
 
     public List<String> printAndReturnAllDefaults() {

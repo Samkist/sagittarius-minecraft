@@ -1,4 +1,6 @@
-package dev.samkist.lumae.sagittarius.data.models;
+package dev.samkist.lumae.sagittarius.data.models.global;
+
+import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 
 import java.util.Map;
 

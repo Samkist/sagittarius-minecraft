@@ -1,17 +1,11 @@
-package net.lumae.api.controllers;
+package net.lumae.api.controllers.gamemode;
 
-import dev.samkist.lumae.sagittarius.data.models.Home;
-import dev.samkist.lumae.sagittarius.data.models.Homes;
-import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
-import net.lumae.api.repository.HomesRepository;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 import net.lumae.api.repository.MilkyPlayerRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Optional;
 
 @RestController
 public class KillDeathController {
@@ -27,9 +21,9 @@ public class KillDeathController {
     public Double get(@PathVariable String uuid) {
         MilkyPlayer p = players.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
-        return p.getKdr();
+        return 0.0;
     }
-
+/*
     //TODO: Make /players/{uuid}/kd set Kills and Deaths.
 
     @Cacheable("playerCache")
@@ -71,5 +65,5 @@ public class KillDeathController {
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
         p.setKd(0, 0);
         players.save(p);
-    }
+    }*/
 }

@@ -1,25 +1,16 @@
-package net.lumae.api.controllers;
+package net.lumae.api.controllers.global;
 
-import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
-import dev.samkist.lumae.sagittarius.data.models.SimpleLocation;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
+import dev.samkist.lumae.sagittarius.data.models.contexts.PosContext;
+import dev.samkist.lumae.sagittarius.data.models.global.ServerLocation;
+import dev.samkist.lumae.sagittarius.data.models.gamemode.SimpleLocation;
 import net.lumae.api.repository.MilkyPlayerRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-
-class PosContext {
-    public PosContext(String uuid, SimpleLocation location) {
-        this.uuid = uuid;
-        this.location = location;
-    }
-    String uuid;
-    SimpleLocation location;
-}
 
 @RestController
 public class PositionUpdaterController {
@@ -60,7 +51,7 @@ public class PositionUpdaterController {
 
     @Cacheable("playerCache")
     @PostMapping("/pos/{uuid}")
-    public void set(@RequestParam String uuid, @RequestBody SimpleLocation loc) {
+    public void set(@RequestParam String uuid, @RequestBody ServerLocation loc) {
         MilkyPlayer p = players.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
         p.setLastLocation(loc);

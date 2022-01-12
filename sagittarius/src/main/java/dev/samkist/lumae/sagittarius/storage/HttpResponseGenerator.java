@@ -184,9 +184,9 @@ public class HttpResponseGenerator {
 
     private <T> HttpRequest generateRequest(Routes route, T body, List<String> values) {
         HttpRequest request = null;
-        String unDevelopedRoute = apiHost + route.getRoute();
+        String unDevelopedRoute = apiHost + route.route();
         System.out.println(String.format("Building: %s", unDevelopedRoute));
-        switch(route.getRequestType()) {
+        switch(route.requestType()) {
             case GET:
                 request = Unirest.get(unDevelopedRoute);
                 break;
@@ -203,9 +203,10 @@ public class HttpResponseGenerator {
             requestWithBody.body(gson.toJsonTree(body));
         }
 
-        List<String> variables = route.getVariables();
+        List<String> variables = route.variables();
 
         for(int i = 0; i < variables.size(); ++i) {
+            System.out.println(String.format("Variables: %s", variables.get(i)));
             request.routeParam(variables.get(i), values.get(i));
         }
 

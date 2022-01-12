@@ -1,4 +1,6 @@
-package dev.samkist.lumae.sagittarius.data.models;
+package dev.samkist.lumae.sagittarius.data.models.gamemode;
+
+import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 
 public class Home extends MilkyModel {
     private SimpleLocation location;

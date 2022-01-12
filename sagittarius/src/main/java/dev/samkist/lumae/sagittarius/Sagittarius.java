@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
-public class Sagittarius extends JavaPlugin {
+public class Sagittarius {
 
     public final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -21,23 +21,29 @@ public class Sagittarius extends JavaPlugin {
     private Tests tests;
     private static final String apiRoute = "http://198.55.58.21";
     public static final long LAST_START_TIME = System.currentTimeMillis();
+    private static final Sagittarius instance = new Sagittarius();
+    private static boolean ran = false;
 
-    @Override
-    public void onEnable() {
+    private Sagittarius() {
 
+    }
+
+    public static Sagittarius getSagittarius() {
+        if(ran) {
+            return null;
+        } else {
+            ran = true;
+        }
+        return instance;
+    }
+
+    public void enable() {
         restManager = new RESTManager(this, gson, apiRoute);
 
         tests = new Tests(this, restManager);
-
-        getServer().getPluginManager().registerEvents(new JoinQuitListener(this), this);
-
-        SagittariusReadyEvent readyEvent = new SagittariusReadyEvent(sagittariusApi);
-
-        Bukkit.getPluginManager().callEvent(readyEvent);
     }
 
-    @Override
-    public void onDisable() {
+    public void disable() {
 
     }
 

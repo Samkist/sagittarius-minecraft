@@ -1,6 +1,8 @@
-package net.lumae.api.controllers;
+package net.lumae.api.controllers.gamemode;
 
-import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
+import dev.samkist.lumae.sagittarius.data.models.contexts.TransactionContext;
+import dev.samkist.lumae.sagittarius.data.models.contexts.TransferContext;
 import net.lumae.api.repository.MilkyPlayerRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-class TransferContext {
-    String to;
-    String from;
-    Long amount;
-}
-
-class TransactionContext {
-    String uuid;
-    Long amount;
-}
-
 @RestController
 public class EconomyController {
     @Autowired
@@ -45,22 +35,22 @@ public class EconomyController {
     @Cacheable("playerCache")
     @PostMapping("/economy/set")
     public void set(@RequestBody TransactionContext transaction) {
-        MilkyPlayer p = players.findById(transaction.uuid)
-                .orElseThrow(() -> new RecordNotFoundException(transaction.uuid, MilkyPlayer.scope));
-        p.setBalance(transaction.amount);
+        MilkyPlayer p = players.findById(transaction.uuid())
+                .orElseThrow(() -> new RecordNotFoundException(transaction.uuid(), MilkyPlayer.scope));
+        p.setBalance(transaction.amount());
         players.save(p);
     }
 
     @Cacheable("playerCache")
     @PostMapping("/economy/transfer")
     public boolean transfer(@RequestBody TransferContext transfer) {
-        MilkyPlayer recipient = players.findById(transfer.to)
-                .orElseThrow(() -> new RecordNotFoundException(transfer.to, MilkyPlayer.scope));
-        MilkyPlayer sender = players.findById(transfer.from)
-                .orElseThrow(() -> new RecordNotFoundException(transfer.from, MilkyPlayer.scope));
-        if (sender.getBalance() >= transfer.amount) {
-            recipient.setBalance(recipient.getBalance() + transfer.amount);
-            sender.setBalance(sender.getBalance() - transfer.amount);
+        MilkyPlayer recipient = players.findById(transfer.to())
+                .orElseThrow(() -> new RecordNotFoundException(transfer.to(), MilkyPlayer.scope));
+        MilkyPlayer sender = players.findById(transfer.from())
+                .orElseThrow(() -> new RecordNotFoundException(transfer.from(), MilkyPlayer.scope));
+        if (sender.getBalance() >= transfer.amount()) {
+            recipient.setBalance(recipient.getBalance() + transfer.amount());
+            sender.setBalance(sender.getBalance() - transfer.amount());
             players.save(recipient);
             players.save(sender);
             return true;
@@ -71,9 +61,9 @@ public class EconomyController {
     @Cacheable("playerCache")
     @PostMapping("/economy/deposit")
     public void deposit(@RequestBody TransactionContext transaction) {
-        MilkyPlayer p = players.findById(transaction.uuid)
-                .orElseThrow(() -> new RecordNotFoundException(transaction.uuid, MilkyPlayer.scope));
-        p.setBalance(transaction.amount);
+        MilkyPlayer p = players.findById(transaction.uuid())
+                .orElseThrow(() -> new RecordNotFoundException(transaction.uuid(), MilkyPlayer.scope));
+        p.setBalance(transaction.amount());
         players.save(p);
     }
 

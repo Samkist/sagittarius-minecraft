@@ -1,6 +1,6 @@
 package net.lumae.api.repository;
 
-import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

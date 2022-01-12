@@ -1,7 +1,6 @@
-package net.lumae.api.controllers;
+package net.lumae.api.controllers.global;
 
-import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
-import net.lumae.api.ApiApplication;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 import net.lumae.api.repository.MilkyPlayerRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +45,6 @@ public class MilkyPlayerController {
     public void delete(@PathVariable String uuid) {
         players.deleteById(uuid);
     }
-
-
 
 
 }

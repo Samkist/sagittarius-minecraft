@@ -1,6 +1,6 @@
 package net.lumae.api.controllers;
 
-import dev.samkist.lumae.sagittarius.data.models.MilkyPlayer;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 import net.lumae.api.repository.MilkyPlayerRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@SagittariusController
+@RestController
 public class TimeController {
     @Autowired
     private final MilkyPlayerRepository players;

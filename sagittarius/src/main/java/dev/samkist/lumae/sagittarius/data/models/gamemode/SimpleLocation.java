@@ -1,4 +1,4 @@
-package dev.samkist.lumae.sagittarius.data.models;
+package dev.samkist.lumae.sagittarius.data.models.gamemode;
 
 import org.bukkit.Location;
 

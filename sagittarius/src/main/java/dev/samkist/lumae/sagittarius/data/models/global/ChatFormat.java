@@ -1,8 +1,8 @@
-package dev.samkist.lumae.sagittarius.data.models;
+package dev.samkist.lumae.sagittarius.data.models.global;
 
 import java.util.Map;
 
-public class ChatFormat extends Format{
+public class ChatFormat extends Format {
 
     public static final String scope = "chat-formats";
 

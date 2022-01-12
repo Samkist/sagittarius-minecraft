@@ -1,6 +1,6 @@
-package net.lumae.api.controllers;
+package net.lumae.api.controllers.global;
 
-import dev.samkist.lumae.sagittarius.data.models.ChatFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
 import net.lumae.api.repository.ChatFormatRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

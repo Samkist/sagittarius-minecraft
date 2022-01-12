@@ -1,6 +1,6 @@
-package net.lumae.api.controllers;
+package net.lumae.api.controllers.global;
 
-import dev.samkist.lumae.sagittarius.data.models.JoinLeaveFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
 import net.lumae.api.repository.JoinLeaveFormatRepository;
 import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

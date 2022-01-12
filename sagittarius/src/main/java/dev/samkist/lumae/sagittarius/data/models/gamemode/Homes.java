@@ -1,9 +1,8 @@
-package dev.samkist.lumae.sagittarius.data.models;
+package dev.samkist.lumae.sagittarius.data.models.gamemode;
 
-import org.bukkit.Location;
+import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Homes extends MilkyModel {
     private Map<String, SimpleLocation> locationMap;

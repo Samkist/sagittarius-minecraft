@@ -1,0 +1,11 @@
+main: net.lumae.orion.Orion
+name: Orion
+api-version: 1.18
+description: Core implementation of Sagittarius API
+database: true
+authors:
+  - Samkist
+  - cbotte21
+load: STARTUP
+prefix: Milky Way - ORION
+version: 0.3.0

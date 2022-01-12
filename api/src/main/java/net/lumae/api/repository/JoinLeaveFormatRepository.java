@@ -1,7 +1,6 @@
 package net.lumae.api.repository;
 
-import dev.samkist.lumae.sagittarius.data.models.Homes;
-import dev.samkist.lumae.sagittarius.data.models.JoinLeaveFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
