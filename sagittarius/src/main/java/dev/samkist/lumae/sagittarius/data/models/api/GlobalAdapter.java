@@ -1,43 +1,42 @@
 package dev.samkist.lumae.sagittarius.data.models.api;
 
-import dev.samkist.lumae.sagittarius.data.gamemode.GameMode;
 import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 
 import java.util.Map;
 
-public abstract class GlobalAdapter<T extends MilkyModel> extends MilkyModel {
-    private Map<GameMode, T> modelMap;
+public abstract class GlobalAdapter<K, V extends MilkyModel> extends MilkyModel {
+    private Map<K, V> modelMap;
 
     public GlobalAdapter() {
         super();
     }
 
-    public GlobalAdapter(String uid, String scope, Map<GameMode, T> modelMap) {
+    public GlobalAdapter(String uid, String scope, Map<K, V> modelMap) {
         super(uid, scope);
         this.modelMap = modelMap;
     }
 
-    public T getModelByGamemode(GameMode gameMode) {
-        return modelMap.getOrDefault(gameMode, null);
+    public V getModelByKey(K key) {
+        return modelMap.get(key);
     }
 
-    public Map<GameMode, T> getModelMap() {
+    public Map<K, V> getModelMap() {
         return modelMap;
     }
 
-    public void setModelMap(Map<GameMode, T> modelMap) {
+    public void setModelMap(Map<K, V> modelMap) {
         this.modelMap = modelMap;
     }
 
-    public void saveModel(GameMode gameMode, T model) {
-        modelMap.put(gameMode, model);
+    public void saveModel(K key, V model) {
+        modelMap.put(key, model);
     }
 
-    public void removeModel(GameMode gameMode) {
-        modelMap.remove(gameMode);
+    public V removeModel(K key) {
+        return modelMap.remove(key);
     }
 
-    public boolean hasModel(GameMode gameMode) {
-        return modelMap.containsKey(gameMode);
+    public boolean hasModel(K key) {
+        return modelMap.containsKey(key);
     }
 }

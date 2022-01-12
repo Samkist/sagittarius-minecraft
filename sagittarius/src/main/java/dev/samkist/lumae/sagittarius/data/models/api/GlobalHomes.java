@@ -5,7 +5,7 @@ import dev.samkist.lumae.sagittarius.data.models.gamemode.Homes;
 
 import java.util.Map;
 
-public class GlobalHomes extends GlobalAdapter<Homes> {
+public class GlobalHomes extends GlobalAdapter<GameMode, Homes> {
     public static final String scope = "homes";
 
     public GlobalHomes() {

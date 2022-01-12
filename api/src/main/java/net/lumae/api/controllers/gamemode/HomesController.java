@@ -6,11 +6,14 @@ import dev.samkist.lumae.sagittarius.data.models.gamemode.Home;
 import dev.samkist.lumae.sagittarius.data.models.gamemode.Homes;
 import net.lumae.api.repository.HomesRepository;
 import net.lumae.api.repository.MilkyPlayerRepository;
+import net.lumae.api.repository.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.Objects;
+import java.util.Optional;
 
 import static dev.samkist.lumae.sagittarius.data.gamemode.GameMode.*;
 
@@ -36,7 +39,6 @@ public class HomesController {
     @GetMapping("/servers/{server}/players/{uuid}/homes")
     public Homes one(@PathVariable String server, @PathVariable String uuid) {
         Homes homes = homesById(server, uuid);
-        System.out.println("Homes: " + homes);
         return homes;
     }
 
@@ -64,9 +66,13 @@ public class HomesController {
 
     private Homes homesById(String server, String uuid) {
         GlobalHomes globalHomes = globalHomesById(uuid);
+        if(Objects.isNull(globalHomes)) {
+            throw new RecordNotFoundException(uuid, globalHomes.getClass());
+        }
         GameMode gameMode = getByName(server);
         if(globalHomes.hasModel(gameMode)) {
-            return globalHomes.getModelByGamemode(gameMode);
+            return Optional.ofNullable(globalHomes.getModelByKey(gameMode))
+                    .orElseThrow(() -> new RecordNotFoundException(uuid, Homes.class));
         } else {
             Homes empty = new Homes(uuid, new HashMap<>());
             saveHomes(server, empty);

@@ -1,6 +1,7 @@
 package dev.samkist.lumae.sagittarius.api;
 
 import dev.samkist.lumae.sagittarius.Sagittarius;
+import dev.samkist.lumae.sagittarius.data.gamemode.GameMode;
 import dev.samkist.lumae.sagittarius.test.Tests;
 
 import java.util.Objects;
@@ -21,6 +22,10 @@ public class SagittariusApi {
         } else {
             return instance;
         }
+    }
+
+    public GameMode currentGameMode() {
+        return GameMode.SURVIVAL;
     }
 
     private void initialize() {
