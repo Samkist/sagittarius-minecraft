@@ -118,7 +118,7 @@ public class RESTManager {
         return generator.request(HOMES_ALL, Homes.class, gameMode.getName(), uuid);
     }
 
-    public HttpResponse<Homes> addPlayerHome(GameMode gameMode, String uuid, Home home) {
+    public HttpResponse<Homes> savePlayerHome(GameMode gameMode, String uuid, Home home) {
         return generator.request(HOME_SAVE, home, Homes.class, gameMode.getName(), uuid);
     }
 

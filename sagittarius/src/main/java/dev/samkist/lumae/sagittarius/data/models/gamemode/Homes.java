@@ -33,7 +33,7 @@ public class Homes extends MilkyModel {
         locationMap.remove(id);
     }
 
-    public void addHome(Home home) {
+    public void saveHome(Home home) {
         locationMap.put(home.uid, home.getLocation());
     }
 }
