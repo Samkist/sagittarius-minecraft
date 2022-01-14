@@ -4,7 +4,7 @@ import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 
 import java.util.Map;
 
-public abstract class GlobalAdapter<K, V extends MilkyModel> extends MilkyModel {
+public abstract class GlobalAdapter<K, V extends MilkyModel<V>, S extends GlobalAdapter> extends MilkyModel<S> {
     private Map<K, V> modelMap;
 
     public GlobalAdapter() {
@@ -20,11 +20,11 @@ public abstract class GlobalAdapter<K, V extends MilkyModel> extends MilkyModel 
         return modelMap.get(key);
     }
 
-    public Map<K, V> getModelMap() {
+    public Map<K, V> modelMap() {
         return modelMap;
     }
 
-    public void setModelMap(Map<K, V> modelMap) {
+    public void modelMap(Map<K, V> modelMap) {
         this.modelMap = modelMap;
     }
 

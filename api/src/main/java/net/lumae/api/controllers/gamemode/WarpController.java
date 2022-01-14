@@ -5,7 +5,6 @@ import dev.samkist.lumae.sagittarius.data.models.api.GlobalWarps;
 import dev.samkist.lumae.sagittarius.data.models.gamemode.Warp;
 import net.lumae.api.repository.RecordNotFoundException;
 import net.lumae.api.repository.WarpRepository;
-import org.apache.tomcat.jni.Global;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
@@ -59,7 +58,7 @@ public class WarpController {
     }
 
     private List<Warp> warpsByServer(String server) {
-        return globalWarpsByServer(server).getModelMap().values().stream().toList();
+        return globalWarpsByServer(server).modelMap().values().stream().toList();
     }
 
     private GlobalWarps globalWarpsByServer(String server) {

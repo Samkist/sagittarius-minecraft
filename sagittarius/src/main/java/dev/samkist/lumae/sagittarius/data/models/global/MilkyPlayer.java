@@ -3,10 +3,11 @@ package dev.samkist.lumae.sagittarius.data.models.global;
 import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 import org.bukkit.entity.Player;
 
-public class MilkyPlayer extends MilkyModel {
+public class MilkyPlayer extends MilkyModel<MilkyPlayer> {
     private String lastUsername;
     private String nickname;
-    private Long balance;
+    private String chatFormat;
+    private Double balance;
     private Integer votes;
     private Integer secondsPlayed;
     private Long joinDate;
@@ -16,7 +17,8 @@ public class MilkyPlayer extends MilkyModel {
     public MilkyPlayer(String id,
                        String lastUsername,
                        String nickname,
-                       Long balance,
+                       String chatFormat,
+                       Double balance,
                        Integer votes,
                        Integer secondsPlayed,
                        Long joinDate,
@@ -24,6 +26,7 @@ public class MilkyPlayer extends MilkyModel {
         super(id, MilkyPlayer.scope);
         this.lastUsername = lastUsername;
         this.nickname = nickname;
+        this.chatFormat = chatFormat;
         this.balance = balance;
         this.votes = votes;
         this.secondsPlayed = secondsPlayed;
@@ -32,73 +35,92 @@ public class MilkyPlayer extends MilkyModel {
     }
 
     public MilkyPlayer(Player player) {
-        setUid(player.getUniqueId().toString());
-        setLastUsername(player.getName());
-        setNickname(player.getName());
-        setBalance(0L);
-        setVotes(0);
-        setSecondsPlayed(0);
-        setJoinDate(System.currentTimeMillis());
-        setLastLocation(new ServerLocation("survival", player.getLocation()));
+        uid(player.getUniqueId().toString());
+        lastUsername(player.getName());
+        nickname(player.getName());
+        setChatFormat("default");
+        balance(0D);
+        votes(0);
+        secondsPlayed(0);
+        joinDate(System.currentTimeMillis());
+        lastLocation(new ServerLocation("survival", player.getLocation()));
     }
+
+
 
     public MilkyPlayer() {
         super();
     }
 
-    public String getLastUsername() {
+    public String lastUsername() {
         return lastUsername;
     }
 
-    public void setLastUsername(String lastUsername) {
+    public MilkyPlayer lastUsername(String lastUsername) {
         this.lastUsername = lastUsername;
+        return this;
     }
 
-    public String getNickname() {
+    public String nickname() {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    public MilkyPlayer nickname(String nickname) {
         this.nickname = nickname;
+        return this;
     }
 
-    public Long getBalance() {
+    public String chatFormat() {
+        return chatFormat;
+    }
+
+    public MilkyPlayer setChatFormat(String chatFormat) {
+        this.chatFormat = chatFormat;
+        return this;
+    }
+
+    public Double balance() {
         return balance;
     }
 
-    public void setBalance(Long balance) {
+    public MilkyPlayer balance(Double balance) {
         this.balance = balance;
+        return this;
     }
 
-    public Integer getVotes() {
+    public Integer votes() {
         return votes;
     }
 
-    public void setVotes(Integer votes) {
+    public MilkyPlayer votes(Integer votes) {
         this.votes = votes;
+        return this;
     }
 
-    public Integer getSecondsPlayed() {
+    public Integer secondsPlayed() {
         return secondsPlayed;
     }
 
-    public void setSecondsPlayed(Integer secondsPlayed) {
+    public MilkyPlayer secondsPlayed(Integer secondsPlayed) {
         this.secondsPlayed = secondsPlayed;
+        return this;
     }
 
-    public Long getJoinDate() {
+    public Long joinDate() {
         return joinDate;
     }
 
-    public void setJoinDate(Long joinDate) {
+    public MilkyPlayer joinDate(Long joinDate) {
         this.joinDate = joinDate;
+        return this;
     }
 
-    public ServerLocation getLastLocation() {
+    public ServerLocation lastLocation() {
         return lastLocation;
     }
 
-    public void setLastLocation(ServerLocation lastLocation) {
+    public MilkyPlayer lastLocation(ServerLocation lastLocation) {
         this.lastLocation = lastLocation;
+        return this;
     }
 }

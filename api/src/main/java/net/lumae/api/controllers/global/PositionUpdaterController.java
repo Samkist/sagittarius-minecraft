@@ -26,7 +26,7 @@ public class PositionUpdaterController {
     public List<PosContext> all() {
         List<PosContext> positions = null;
         for (MilkyPlayer p : players.findAll()) {
-            positions.add(new PosContext(p.uid, p.getLastLocation()));
+            positions.add(new PosContext(p.uid, p.lastLocation()));
         }
         return positions;
     }
@@ -38,7 +38,7 @@ public class PositionUpdaterController {
         Iterable res = players.findAllById(uuids);
         res.forEach(obj -> {
             MilkyPlayer p = ((MilkyPlayer) obj);
-            positions.add(new PosContext(p.uid, p.getLastLocation()));
+            positions.add(new PosContext(p.uid, p.lastLocation()));
         });
         return positions;
     }
@@ -46,7 +46,7 @@ public class PositionUpdaterController {
     @Cacheable("playerCache")
     @GetMapping("/pos/{uuid}")
     public SimpleLocation get(@PathVariable String uuid) {
-        return players.findById(uuid).get().getLastLocation();
+        return players.findById(uuid).get().lastLocation();
     }
 
     @Cacheable("playerCache")
@@ -54,7 +54,7 @@ public class PositionUpdaterController {
     public void set(@RequestParam String uuid, @RequestBody ServerLocation loc) {
         MilkyPlayer p = players.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
-        p.setLastLocation(loc);
+        p.lastLocation(loc);
         players.save(p);
     }
 

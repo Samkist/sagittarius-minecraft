@@ -53,7 +53,7 @@ public class HomesController {
     @Cacheable("homeCache")
     @GetMapping("/servers/{server}/players/{uuid}/homes/{name}")
     public Home oneHome(@PathVariable String server, @PathVariable String uuid, @PathVariable String name) {
-        return homesById(server, uuid).getHomeById(name);
+        return homesById(server, uuid).homeById(name);
     }
 
     @Cacheable("homeCache")
@@ -95,7 +95,7 @@ public class HomesController {
     }
 
     private Homes saveHomes(String server, Homes homes) {
-        GlobalHomes global = globalHomesById(homes.getUid());
+        GlobalHomes global = globalHomesById(homes.uid());
         global.saveModel(getByName(server), homes);
         globalHomes.save(global);
         return homes;

@@ -25,7 +25,7 @@ public class AnnouncerController {
     @GetMapping("/announcements/{id}")
     public String get(@PathVariable String id) {
         return announcer.findById(id)
-                .orElseThrow(() -> new RecordNotFoundException(id, Announcement.scope)).getMessage();
+                .orElseThrow(() -> new RecordNotFoundException(id, Announcement.scope)).message();
     }
 
     @GetMapping("/announcements/length")

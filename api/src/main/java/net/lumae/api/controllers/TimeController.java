@@ -30,7 +30,7 @@ public class TimeController {
     public int get(@PathVariable String uuid) {
         return players.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope))
-                .getSecondsPlayed();
+                .secondsPlayed();
     }
 
     @Cacheable("playerCache")
@@ -39,7 +39,7 @@ public class TimeController {
         for (String uuid : activePlayers) {
             MilkyPlayer p = players.findById(uuid)
                     .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
-            p.setSecondsPlayed(p.getSecondsPlayed() + seconds);
+            p.secondsPlayed(p.secondsPlayed() + seconds);
             players.save(p);
         }
         return "success:true";

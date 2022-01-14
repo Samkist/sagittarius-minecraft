@@ -181,7 +181,7 @@ public class Tests {
     public Homes homes() {
         HashMap<String, SimpleLocation> homes = new HashMap<>();
         Home home = home();
-        homes.put(home.uid, home.getLocation());
+        homes.put(home.uid, home.location());
         return new Homes(testingUUID, homes);
     }
 
@@ -210,5 +210,4 @@ public class Tests {
                 0.0f
         );
     }
-
 }

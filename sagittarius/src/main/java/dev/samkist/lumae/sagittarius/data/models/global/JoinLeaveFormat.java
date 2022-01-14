@@ -3,7 +3,7 @@ package dev.samkist.lumae.sagittarius.data.models.global;
 
 import java.util.Map;
 
-public class JoinLeaveFormat extends Format {
+public class JoinLeaveFormat extends Format<JoinLeaveFormat> {
 
     public static final String scope = "join-leave-formats";
 

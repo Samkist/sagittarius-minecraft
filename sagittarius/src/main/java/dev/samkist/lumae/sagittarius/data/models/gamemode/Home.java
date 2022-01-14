@@ -2,7 +2,7 @@ package dev.samkist.lumae.sagittarius.data.models.gamemode;
 
 import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 
-public class Home extends MilkyModel {
+public class Home extends MilkyModel<Home> {
     private SimpleLocation location;
     public static final String scope = "home";
 
@@ -15,11 +15,11 @@ public class Home extends MilkyModel {
 
     }
 
-    public SimpleLocation getLocation() {
+    public SimpleLocation location() {
         return location;
     }
 
-    public void setLocation(SimpleLocation location) {
+    public void location(SimpleLocation location) {
         this.location = location;
     }
 }

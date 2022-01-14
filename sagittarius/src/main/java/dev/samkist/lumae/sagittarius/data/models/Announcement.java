@@ -1,6 +1,6 @@
 package dev.samkist.lumae.sagittarius.data.models;
 
-public class Announcement extends MilkyModel {
+public class Announcement extends MilkyModel<Announcement> {
     private String message;
     public static final String scope = "announcer";
 
@@ -13,11 +13,12 @@ public class Announcement extends MilkyModel {
 
     }
 
-    public String getMessage() {
+    public String message() {
         return message;
     }
 
-    public void setLocation(String message) {
+    public Announcement message(String message) {
         this.message = message;
+        return this;
     }
 }

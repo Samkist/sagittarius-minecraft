@@ -18,11 +18,11 @@ public class ServerLocation extends SimpleLocation {
     public ServerLocation() {
     }
 
-    public String getServer() {
+    public String server() {
         return server;
     }
 
-    public void setServer(String server) {
+    public void server(String server) {
         this.server = server;
     }
 }

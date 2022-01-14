@@ -4,7 +4,7 @@ import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 
 import java.util.Map;
 
-public class Homes extends MilkyModel {
+public class Homes extends MilkyModel<Homes> {
     private Map<String, SimpleLocation> locationMap;
     public static final String scope = "homes";
 
@@ -17,15 +17,15 @@ public class Homes extends MilkyModel {
         this.locationMap = locationMap;
     }
 
-    public Map<String, SimpleLocation> getLocationMap() {
+    public Map<String, SimpleLocation> locationMap() {
         return locationMap;
     }
 
-    public void setLocationMap(Map<String, SimpleLocation> locationMap) {
+    public void locationMap(Map<String, SimpleLocation> locationMap) {
         this.locationMap = locationMap;
     }
 
-    public Home getHomeById(String id) {
+    public Home homeById(String id) {
         return new Home(id, locationMap.get(id));
     }
 
@@ -34,6 +34,6 @@ public class Homes extends MilkyModel {
     }
 
     public void saveHome(Home home) {
-        locationMap.put(home.uid, home.getLocation());
+        locationMap.put(home.uid, home.location());
     }
 }

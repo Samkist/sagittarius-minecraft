@@ -8,17 +8,16 @@ import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 public class NetworkManager extends AbstractDataManager {
 
-    private final SurvivalManager survivalManager;
+    private final SurvivalServerManager survivalManager;
     private final SagittariusApi parentApi;
 
     public NetworkManager(DataManager dataManager, SagittariusApi parentApi) {
         super(dataManager);
-        this.survivalManager = new SurvivalManager(dataManager, this);
+        this.survivalManager = new SurvivalServerManager(dataManager, this);
         this.parentApi = parentApi;
     }
 
@@ -29,7 +28,7 @@ public class NetworkManager extends AbstractDataManager {
         };
     }
 
-    public SurvivalManager getSurvivalManager() {
+    public SurvivalServerManager getSurvivalManager() {
         return survivalManager;
     }
 
@@ -42,7 +41,7 @@ public class NetworkManager extends AbstractDataManager {
     }
 
     public PlayerManager getPlayerManager(Server server, MilkyPlayer milkyPlayer) {
-        Player player = server.getPlayer(UUID.fromString(milkyPlayer.getUid()));
+        Player player = server.getPlayer(UUID.fromString(milkyPlayer.uid()));
         return Objects.nonNull(player) ?
                 new PlayerManager(getDataManager(), this, player) :
                 getPlayerManager(milkyPlayer);

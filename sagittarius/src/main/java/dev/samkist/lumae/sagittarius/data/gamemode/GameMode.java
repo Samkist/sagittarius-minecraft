@@ -24,9 +24,9 @@ public enum GameMode {
 
     public static String getMilkyColl(GameMode gamemode, MilkyModel model) {
         if(gamemode.equals(GLOBAL)) {
-            return model.getScope();
+            return model.scope();
         } else {
-            return String.format("%s_%s", gamemode.getName(), model.getScope());
+            return String.format("%s_%s", gamemode.getName(), model.scope());
         }
     }
 

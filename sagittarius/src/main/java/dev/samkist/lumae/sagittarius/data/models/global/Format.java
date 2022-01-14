@@ -4,7 +4,7 @@ import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 
 import java.util.Map;
 
-public abstract class Format extends MilkyModel {
+public abstract class Format<T extends Format> extends MilkyModel<T> {
     private String permission;
     private Map<String, String> formatStrings;
     private Integer priority;
@@ -20,27 +20,30 @@ public abstract class Format extends MilkyModel {
         super();
     }
 
-    public String getPermission() {
+    public String permission() {
         return permission;
     }
 
-    public void setPermission(String permission) {
+    public T permission(String permission) {
         this.permission = permission;
+        return (T) this;
     }
 
-    public Map<String, String> getFormatStrings() {
+    public Map<String, String> formatStrings() {
         return formatStrings;
     }
 
-    public void setFormatStrings(Map<String, String> formatStrings) {
+    public T formatStrings(Map<String, String> formatStrings) {
         this.formatStrings = formatStrings;
+        return (T) this;
     }
 
-    public Integer getPriority() {
+    public Integer priority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public T priority(Integer priority) {
         this.priority = priority;
+        return (T) this;
     }
 }

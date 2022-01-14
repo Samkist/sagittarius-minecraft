@@ -3,10 +3,10 @@ package dev.samkist.lumae.sagittarius.data.controllers;
 import dev.samkist.lumae.sagittarius.data.gamemode.GameMode;
 import dev.samkist.lumae.sagittarius.storage.DataManager;
 
-public class SurvivalManager extends AbstractServerManager {
+public class SurvivalServerManager extends AbstractServerManager {
 
 
-    protected SurvivalManager(DataManager dataManager, NetworkManager networkManager) {
+    protected SurvivalServerManager(DataManager dataManager, NetworkManager networkManager) {
         super(dataManager, networkManager, GameMode.SURVIVAL);
     }
 }

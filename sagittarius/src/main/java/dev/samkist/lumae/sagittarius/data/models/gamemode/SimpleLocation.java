@@ -24,51 +24,51 @@ public class SimpleLocation {
 
     }
 
-    public String getWorld() {
+    public String world() {
         return world;
     }
 
-    public void setWorld(String world) {
+    public void world(String world) {
         this.world = world;
     }
 
-    public Double getX() {
+    public Double x() {
         return x;
     }
 
-    public void setX(Double x) {
+    public void x(Double x) {
         this.x = x;
     }
 
-    public Double getY() {
+    public Double y() {
         return y;
     }
 
-    public void setY(Double y) {
+    public void y(Double y) {
         this.y = y;
     }
 
-    public Double getZ() {
+    public Double z() {
         return z;
     }
 
-    public void setZ(Double z) {
+    public void z(Double z) {
         this.z = z;
     }
 
-    public Float getYaw() {
+    public Float yaw() {
         return yaw;
     }
 
-    public void setYaw(Float yaw) {
+    public void yaw(Float yaw) {
         this.yaw = yaw;
     }
 
-    public Float getPitch() {
+    public Float pitch() {
         return pitch;
     }
 
-    public void setPitch(Float pitch) {
+    public void pitch(Float pitch) {
         this.pitch = pitch;
     }
 }

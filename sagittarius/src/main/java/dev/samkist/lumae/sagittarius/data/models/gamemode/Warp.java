@@ -2,7 +2,7 @@ package dev.samkist.lumae.sagittarius.data.models.gamemode;
 
 import dev.samkist.lumae.sagittarius.data.models.MilkyModel;
 
-public class Warp extends MilkyModel {
+public class Warp extends MilkyModel<Warp> {
     private SimpleLocation location;
     private String ownerUuid;
     private String permission;
@@ -22,35 +22,35 @@ public class Warp extends MilkyModel {
         this.enabled = enabled;
     }
 
-    public SimpleLocation getLocation() {
+    public SimpleLocation location() {
         return location;
     }
 
-    public void setLocation(SimpleLocation location) {
+    public void location(SimpleLocation location) {
         this.location = location;
     }
 
-    public String getOwnerUuid() {
+    public String ownerUuid() {
         return ownerUuid;
     }
 
-    public void setOwnerUuid(String ownerUuid) {
+    public void ownerUuid(String ownerUuid) {
         this.ownerUuid = ownerUuid;
     }
 
-    public String getPermission() {
+    public String permission() {
         return permission;
     }
 
-    public void setPermission(String permission) {
+    public void permission(String permission) {
         this.permission = permission;
     }
 
-    public Boolean getEnabled() {
+    public Boolean enabled() {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void enabled(Boolean enabled) {
         this.enabled = enabled;
     }
 }

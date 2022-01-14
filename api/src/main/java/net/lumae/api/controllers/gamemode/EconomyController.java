@@ -28,8 +28,8 @@ public class EconomyController {
 
     @Cacheable("playerCache")
     @GetMapping("/economy/{uuid}")
-    public Long get(@PathVariable String uuid) {
-        return players.findById(uuid).get().getBalance();
+    public Double get(@PathVariable String uuid) {
+        return players.findById(uuid).get().balance();
     }
 
     @Cacheable("playerCache")
@@ -37,7 +37,7 @@ public class EconomyController {
     public void set(@RequestBody TransactionContext transaction) {
         MilkyPlayer p = players.findById(transaction.uuid())
                 .orElseThrow(() -> new RecordNotFoundException(transaction.uuid(), MilkyPlayer.scope));
-        p.setBalance(transaction.amount());
+        p.balance(transaction.amount());
         players.save(p);
     }
 
@@ -48,9 +48,9 @@ public class EconomyController {
                 .orElseThrow(() -> new RecordNotFoundException(transfer.to(), MilkyPlayer.scope));
         MilkyPlayer sender = players.findById(transfer.from())
                 .orElseThrow(() -> new RecordNotFoundException(transfer.from(), MilkyPlayer.scope));
-        if (sender.getBalance() >= transfer.amount()) {
-            recipient.setBalance(recipient.getBalance() + transfer.amount());
-            sender.setBalance(sender.getBalance() - transfer.amount());
+        if (sender.balance() >= transfer.amount()) {
+            recipient.balance(recipient.balance() + transfer.amount());
+            sender.balance(sender.balance() - transfer.amount());
             players.save(recipient);
             players.save(sender);
             return true;
@@ -63,7 +63,7 @@ public class EconomyController {
     public void deposit(@RequestBody TransactionContext transaction) {
         MilkyPlayer p = players.findById(transaction.uuid())
                 .orElseThrow(() -> new RecordNotFoundException(transaction.uuid(), MilkyPlayer.scope));
-        p.setBalance(transaction.amount());
+        p.balance(transaction.amount());
         players.save(p);
     }
 
@@ -72,7 +72,7 @@ public class EconomyController {
     public void delete(@PathVariable String uuid) {
         MilkyPlayer p = players.findById(uuid)
                 .orElseThrow(() -> new RecordNotFoundException(uuid, MilkyPlayer.scope));
-        p.setBalance(0L);
+        p.balance(0D);
         players.save(p);
     }
 }
