@@ -22,6 +22,7 @@ public class Orion extends JavaPlugin {
         SagittariusReadyEvent readyEvent = new SagittariusReadyEvent(api);
 
         Bukkit.getServer().getPluginManager().callEvent(readyEvent);
+
     }
 
     @Override

@@ -1,19 +1,48 @@
 package dev.samkist.lumae.sagittarius.storage;
 
-import com.google.gson.Gson;
-import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
-import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
 import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
+import dev.samkist.lumae.sagittarius.exceptions.APIRuntimeException;
+import kong.unirest.HttpResponse;
+import org.bukkit.entity.Player;
 
-import java.util.HashMap;
+import java.util.Optional;
 import java.util.UUID;
 
 public class DataManager {
 
-    private Gson gson;
-    private HashMap<UUID, MilkyPlayer> players = new HashMap<>();
-    private HashMap<String, ChatFormat> chatFormats = new HashMap<>();
-    private HashMap<String, JoinLeaveFormat> joinLeaveFormats = new HashMap<>();
+    private final RESTManager restManager;
 
 
+    public DataManager(RESTManager restManager) {
+        this.restManager = restManager;
+    }
+
+    public MilkyPlayer getOrGenerateMilkyPlayer(Player player) {
+        HttpResponse<MilkyPlayer> response = restManager.getMilkyPlayer(player.getUniqueId().toString());
+        if(response.isSuccess()) {
+            return response.getBody();
+        } else {
+            return switch (response.getStatus()) {
+                case 404 -> saveMilkyPlayer(new MilkyPlayer(player));
+                default -> throw new APIRuntimeException("Failed API response.");
+            };
+        }
+    }
+
+    public Optional<MilkyPlayer> getMilkyPlayerByUuid(String uuid) {
+        return Optional.ofNullable(restManager.getMilkyPlayer(uuid).getBody());
+    }
+
+    public Optional<MilkyPlayer> getMilkyPlayerByUuid(UUID uuid) {
+        return getMilkyPlayerByUuid(uuid.toString());
+    }
+
+    public MilkyPlayer saveMilkyPlayer(MilkyPlayer milkyPlayer) {
+        HttpResponse<MilkyPlayer> response = restManager.saveMilkyPlayer(milkyPlayer);
+        if(!response.isSuccess()) {
+            throw new APIRuntimeException("Failed API response.");
+        } else {
+            return milkyPlayer;
+        }
+    }
 }
