@@ -2,7 +2,7 @@ package dev.samkist.lumae.sagittarius.data.controllers;
 
 import dev.samkist.lumae.sagittarius.storage.DataManager;
 
-public class AbstractLocalDataManager extends AbstractDataManager {
+public abstract class AbstractLocalDataManager extends AbstractDataManager {
 
     private final AbstractServerManager parent;
 
