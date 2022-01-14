@@ -3,7 +3,7 @@ package dev.samkist.lumae.sagittarius.data.models.global;
 import dev.samkist.lumae.sagittarius.data.models.gamemode.SimpleLocation;
 import org.bukkit.Location;
 
-public class ServerLocation extends SimpleLocation {
+public class ServerLocation extends SimpleLocation<ServerLocation> {
 
     private String server;
 
@@ -22,7 +22,8 @@ public class ServerLocation extends SimpleLocation {
         return server;
     }
 
-    public void server(String server) {
+    public ServerLocation server(String server) {
         this.server = server;
+        return this;
     }
 }

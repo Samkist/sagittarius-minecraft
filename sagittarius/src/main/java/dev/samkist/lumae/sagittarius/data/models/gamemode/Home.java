@@ -19,7 +19,8 @@ public class Home extends MilkyModel<Home> {
         return location;
     }
 
-    public void location(SimpleLocation location) {
+    public Home location(SimpleLocation location) {
         this.location = location;
+        return this;
     }
 }

@@ -26,31 +26,35 @@ public class Warp extends MilkyModel<Warp> {
         return location;
     }
 
-    public void location(SimpleLocation location) {
+    public Warp location(SimpleLocation location) {
         this.location = location;
+        return this;
     }
 
     public String ownerUuid() {
         return ownerUuid;
     }
 
-    public void ownerUuid(String ownerUuid) {
+    public Warp ownerUuid(String ownerUuid) {
         this.ownerUuid = ownerUuid;
+        return this;
     }
 
     public String permission() {
         return permission;
     }
 
-    public void permission(String permission) {
+    public Warp permission(String permission) {
         this.permission = permission;
+        return this;
     }
 
     public Boolean enabled() {
         return enabled;
     }
 
-    public void enabled(Boolean enabled) {
+    public Warp enabled(Boolean enabled) {
         this.enabled = enabled;
+        return this;
     }
 }

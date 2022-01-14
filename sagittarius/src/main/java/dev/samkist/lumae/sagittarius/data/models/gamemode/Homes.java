@@ -21,19 +21,22 @@ public class Homes extends MilkyModel<Homes> {
         return locationMap;
     }
 
-    public void locationMap(Map<String, SimpleLocation> locationMap) {
+    public Homes locationMap(Map<String, SimpleLocation> locationMap) {
         this.locationMap = locationMap;
+        return this;
     }
 
     public Home homeById(String id) {
         return new Home(id, locationMap.get(id));
     }
 
-    public void removeHome(String id) {
+    public Homes removeHome(String id) {
         locationMap.remove(id);
+        return this;
     }
 
-    public void saveHome(Home home) {
+    public Homes saveHome(Home home) {
         locationMap.put(home.uid, home.location());
+        return this;
     }
 }

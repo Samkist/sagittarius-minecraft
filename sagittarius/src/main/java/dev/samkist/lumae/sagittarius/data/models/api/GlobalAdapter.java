@@ -24,12 +24,14 @@ public abstract class GlobalAdapter<K, V extends MilkyModel<V>, S extends Global
         return modelMap;
     }
 
-    public void modelMap(Map<K, V> modelMap) {
+    public GlobalAdapter<K, V, S> modelMap(Map<K, V> modelMap) {
         this.modelMap = modelMap;
+        return this;
     }
 
-    public void saveModel(K key, V model) {
+    public GlobalAdapter<K, V, S> saveModel(K key, V model) {
         modelMap.put(key, model);
+        return this;
     }
 
     public V removeModel(K key) {

@@ -2,7 +2,7 @@ package dev.samkist.lumae.sagittarius.data.models.gamemode;
 
 import org.bukkit.Location;
 
-public class SimpleLocation {
+public class SimpleLocation<T extends SimpleLocation> {
     private String world;
     private Double x, y, z;
     private Float yaw, pitch;
@@ -28,47 +28,53 @@ public class SimpleLocation {
         return world;
     }
 
-    public void world(String world) {
+    public T world(String world) {
         this.world = world;
+        return (T) this;
     }
 
     public Double x() {
         return x;
     }
 
-    public void x(Double x) {
+    public T x(Double x) {
         this.x = x;
+        return (T) this;
     }
 
     public Double y() {
         return y;
     }
 
-    public void y(Double y) {
+    public T y(Double y) {
         this.y = y;
+        return (T) this;
     }
 
     public Double z() {
         return z;
     }
 
-    public void z(Double z) {
+    public T z(Double z) {
         this.z = z;
+        return (T) this;
     }
 
     public Float yaw() {
         return yaw;
     }
 
-    public void yaw(Float yaw) {
+    public T yaw(Float yaw) {
         this.yaw = yaw;
+        return (T) this;
     }
 
     public Float pitch() {
         return pitch;
     }
 
-    public void pitch(Float pitch) {
+    public T pitch(Float pitch) {
         this.pitch = pitch;
+        return (T) this;
     }
 }
