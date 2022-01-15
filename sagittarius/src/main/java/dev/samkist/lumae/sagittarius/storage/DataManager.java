@@ -1,6 +1,7 @@
 package dev.samkist.lumae.sagittarius.storage;
 
 import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
 import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 import dev.samkist.lumae.sagittarius.data.models.global.ServerLocation;
 import dev.samkist.lumae.sagittarius.exceptions.APIRuntimeException;
@@ -55,7 +56,15 @@ public class DataManager {
     }
 
     public Optional<MilkyPlayer> setPlayerChatFormat(MilkyPlayer player, ChatFormat chatFormat) {
-        return setPlayerChatFormat(player.uid, chatFormat);
+        return setPlayerChatFormat(player.uid(), chatFormat);
+    }
+
+    public String getPlayerNickname(String uuid) {
+        return getMilkyPlayerByUuid(uuid).nickname();
+    }
+
+    public Optional<MilkyPlayer> setPlayerNickname(String uuid, String nickname) {
+        return saveMilkyPlayerOptional(getMilkyPlayerByUuid(uuid).nickname(nickname));
     }
 
     public Optional<MilkyPlayer> setPlayerChatFormat(String uuid, ChatFormat chatFormat) {
@@ -64,13 +73,25 @@ public class DataManager {
 
     public Optional<MilkyPlayer> setPlayerChatFormat(String uuid, String chatFormat) {
         MilkyPlayer player = getMilkyPlayerByUuid(uuid);
-        player.setChatFormat(chatFormat);
+        player.chatFormat(chatFormat);
         return saveMilkyPlayerOptional(player);
     }
 
     public ChatFormat getPlayerChatFormat(String uuid) {
         MilkyPlayer player = getMilkyPlayerByUuid(uuid);
         return getChatFormat(player.chatFormat());
+    }
+
+    public Optional<MilkyPlayer> setPlayerJLFormat(String uuid, JoinLeaveFormat joinLeaveFormat) {
+        return setPlayerJLFormat(uuid, joinLeaveFormat.uid);
+    }
+
+    public Optional<MilkyPlayer> setPlayerJLFormat(String uuid, String joinLeaveFormat) {
+        return saveMilkyPlayerOptional(getMilkyPlayerByUuid(uuid).joinLeaveFormat(joinLeaveFormat));
+    }
+
+    public JoinLeaveFormat getPlayerJLFormat(String uuid) {
+        return getJLFormat(getMilkyPlayerByUuid(uuid).joinLeaveFormat());
     }
 
     public Optional<MilkyPlayer> addBalance(String uuid, Double add) {
@@ -151,5 +172,16 @@ public class DataManager {
         }
     }
 
-
+    public JoinLeaveFormat getJLFormat(String id) {
+        HttpResponse<JoinLeaveFormat> format = restManager.getJoinLeaveFormat(id);
+        if(!format.isSuccess()) {
+            if(format.getStatus() == 404) {
+                return getJLFormat("default");
+            } else {
+                throw new APIRuntimeException("Failed API response");
+            }
+        } else {
+            return format.getBody();
+        }
+    }
 }

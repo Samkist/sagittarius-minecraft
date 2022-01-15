@@ -2,37 +2,34 @@ package dev.samkist.lumae.sagittarius.api;
 
 import dev.samkist.lumae.sagittarius.Sagittarius;
 import dev.samkist.lumae.sagittarius.data.gamemode.GameMode;
+import dev.samkist.lumae.sagittarius.data.managers.NetworkManager;
+import dev.samkist.lumae.sagittarius.data.managers.PlayerManager;
+import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 import dev.samkist.lumae.sagittarius.storage.DataManager;
 import dev.samkist.lumae.sagittarius.test.Tests;
 
 import java.util.Objects;
 
 public class SagittariusApi {
-    private static SagittariusApi instance = null;
-    private Sagittarius sagittarius = Sagittarius.getSagittarius();
-    private DataManager dataManager;
+    private static final SagittariusApi instance = new SagittariusApi();
+    private final Sagittarius sagittarius = Sagittarius.getSagittarius();
+    private final DataManager dataManager;
+    private final NetworkManager networkManager;
 
     private SagittariusApi() {
-        initialize();
+        sagittarius.enable();
+        dataManager = new DataManager(sagittarius.getRestManager());
+        networkManager = new NetworkManager(dataManager, this);
     }
 
-    public static SagittariusApi generateApi() {
-        if(Objects.isNull(instance)) {
-            instance = new SagittariusApi();
-            return generateApi();
-        } else {
-            return instance;
-        }
+    public static SagittariusApi instance() {
+        return instance;
     }
 
     public GameMode currentGameMode() {
         return GameMode.SURVIVAL;
     }
 
-    private void initialize() {
-        sagittarius.enable();
-        dataManager = new DataManager(sagittarius.getRestManager());
-    }
 
     public Tests getTests() {
         return sagittarius.getTests();

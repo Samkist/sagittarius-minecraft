@@ -7,6 +7,7 @@ public class MilkyPlayer extends MilkyModel<MilkyPlayer> {
     private String lastUsername;
     private String nickname;
     private String chatFormat;
+    private String joinLeaveFormat;
     private Double balance;
     private Integer votes;
     private Integer secondsPlayed;
@@ -18,6 +19,7 @@ public class MilkyPlayer extends MilkyModel<MilkyPlayer> {
                        String lastUsername,
                        String nickname,
                        String chatFormat,
+                       String joinLeaveFormat,
                        Double balance,
                        Integer votes,
                        Integer secondsPlayed,
@@ -27,6 +29,7 @@ public class MilkyPlayer extends MilkyModel<MilkyPlayer> {
         this.lastUsername = lastUsername;
         this.nickname = nickname;
         this.chatFormat = chatFormat;
+        this.joinLeaveFormat = joinLeaveFormat;
         this.balance = balance;
         this.votes = votes;
         this.secondsPlayed = secondsPlayed;
@@ -38,7 +41,7 @@ public class MilkyPlayer extends MilkyModel<MilkyPlayer> {
         uid(player.getUniqueId().toString());
         lastUsername(player.getName());
         nickname(player.getName());
-        setChatFormat("default");
+        chatFormat("default");
         balance(0D);
         votes(0);
         secondsPlayed(0);
@@ -74,8 +77,17 @@ public class MilkyPlayer extends MilkyModel<MilkyPlayer> {
         return chatFormat;
     }
 
-    public MilkyPlayer setChatFormat(String chatFormat) {
+    public MilkyPlayer chatFormat(String chatFormat) {
         this.chatFormat = chatFormat;
+        return this;
+    }
+
+    public String joinLeaveFormat() {
+        return joinLeaveFormat;
+    }
+
+    public MilkyPlayer joinLeaveFormat(String joinLeaveFormat) {
+        this.joinLeaveFormat = joinLeaveFormat;
         return this;
     }
 

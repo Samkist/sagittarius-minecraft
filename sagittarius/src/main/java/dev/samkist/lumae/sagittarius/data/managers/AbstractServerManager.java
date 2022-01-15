@@ -1,4 +1,4 @@
-package dev.samkist.lumae.sagittarius.data.controllers;
+package dev.samkist.lumae.sagittarius.data.managers;
 
 import dev.samkist.lumae.sagittarius.data.gamemode.GameMode;
 import dev.samkist.lumae.sagittarius.storage.DataManager;

@@ -1,10 +1,6 @@
-package dev.samkist.lumae.sagittarius.data.controllers;
+package dev.samkist.lumae.sagittarius.data.managers;
 
-import com.google.gson.reflect.TypeToken;
-import dev.samkist.lumae.sagittarius.data.gamemode.GameMode;
 import dev.samkist.lumae.sagittarius.storage.DataManager;
-
-import java.util.HashMap;
 
 public abstract class AbstractDataManager {
     private final DataManager dataManager;

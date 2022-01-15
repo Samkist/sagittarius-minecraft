@@ -198,6 +198,12 @@ public class HttpResponseGenerator {
                 break;
         }
 
+        request = switch(route.requestType()) {
+            case GET -> Unirest.get(unDevelopedRoute);
+            case POST -> Unirest.post(unDevelopedRoute);
+            case DEL -> Unirest.delete(unDevelopedRoute);
+        };
+
         if(request instanceof HttpRequestWithBody && Objects.nonNull(body)) {
             HttpRequestWithBody requestWithBody = (HttpRequestWithBody) request;
             requestWithBody.body(gson.toJsonTree(body));

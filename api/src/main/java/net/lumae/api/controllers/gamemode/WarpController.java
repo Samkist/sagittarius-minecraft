@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class WarpController {
@@ -58,7 +59,7 @@ public class WarpController {
     }
 
     private List<Warp> warpsByServer(String server) {
-        return globalWarpsByServer(server).modelMap().values().stream().toList();
+        return globalWarpsByServer(server).modelMap().values().stream().collect(Collectors.toList());
     }
 
     private GlobalWarps globalWarpsByServer(String server) {

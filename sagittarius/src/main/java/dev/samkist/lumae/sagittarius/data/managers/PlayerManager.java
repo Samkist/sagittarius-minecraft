@@ -1,8 +1,8 @@
-package dev.samkist.lumae.sagittarius.data.controllers;
+package dev.samkist.lumae.sagittarius.data.managers;
 
 import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
+import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
 import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
-import dev.samkist.lumae.sagittarius.exceptions.TodoException;
 import dev.samkist.lumae.sagittarius.storage.DataManager;
 import org.bukkit.entity.Player;
 
@@ -27,35 +27,40 @@ public class PlayerManager extends AbstractGlobalDataManager {
         return getDataManager().getPlayerChatFormat(uuid);
     }
 
-    public void chatFormat(ChatFormat format) {
+    public PlayerManager chatFormat(ChatFormat format) {
         getDataManager().setPlayerChatFormat(uuid, format);
+        return this;
     }
 
-    public void chatFormat(String format) {
+    public PlayerManager chatFormat(String format) {
         getDataManager().setPlayerChatFormat(uuid, format);
+        return this;
+    }
+
+    public JoinLeaveFormat joinLeaveFormat() {
+        return getDataManager().getJLFormat(uuid);
     }
 
     public Double balance() {
-        return 0.0;
+        return getDataManager().getBalance(uuid);
     }
 
-    public void balance(Double balance) {
-        throw new TodoException();
+    public PlayerManager addBalance(Double add) {
+        getDataManager().addBalance(uuid, add);
+        return this;
     }
 
-    public void addBalance(Double add) {
-        throw new TodoException();
-    }
-
-    public void subtractBalance(Double subtract) {
-        throw new TodoException();
+    public PlayerManager subtractBalance(Double subtract) {
+        getDataManager().subtractBalance(uuid, subtract);
+        return this;
     }
 
     public String nickname() {
-        throw new TodoException();
+        return getDataManager().getPlayerNickname(uuid);
     }
 
-    public void nickname(String nickname) {
-        throw new TodoException();
+    public PlayerManager nickname(String nickname) {
+        getDataManager().setPlayerNickname(uuid, nickname);
+        return this;
     }
 }
