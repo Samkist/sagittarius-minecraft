@@ -25,14 +25,12 @@ public class Orion extends JavaPlugin {
         SagittariusReadyEvent readyEvent = new SagittariusReadyEvent(api);
 
         Bukkit.getServer().getPluginManager().callEvent(readyEvent);
-
-        TextComponent comp = new TextComponent("comp");
-        ClickEvent event;
-        HoverEvent event2;
     }
 
     @Override
     public void onDisable() {
 
     }
+
+
 }

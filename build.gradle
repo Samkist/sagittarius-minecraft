@@ -37,6 +37,7 @@ subprojects {
         implementation 'com.google.code.gson:gson:2.8.9'
         implementation 'com.konghq:unirest-java:3.11.09'
         implementation "net.kyori:adventure-api:4.9.3"
+        implementation "net.kyori:adventure-platform:4.9.3"
         //compileOnly 'me.clip:placeholderapi:2.10.10'
         compileOnly 'net.luckperms:api:5.3'
         compileOnly fileTree(dir: 'lib/', include: '*.jar')

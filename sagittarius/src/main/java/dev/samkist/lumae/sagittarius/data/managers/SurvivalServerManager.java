@@ -8,4 +8,6 @@ public class SurvivalServerManager extends AbstractServerManager {
     protected SurvivalServerManager(DataManager dataManager, NetworkManager networkManager) {
         super(dataManager, networkManager, GameMode.SURVIVAL);
     }
+
+
 }
