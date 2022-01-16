@@ -12,6 +12,7 @@ public class MilkyPlayer extends MilkyModel<MilkyPlayer> {
     private Integer votes;
     private Integer secondsPlayed;
     private Long joinDate;
+    private Long lastOnline;
     private ServerLocation lastLocation;
     public static final String scope = "players";
 
