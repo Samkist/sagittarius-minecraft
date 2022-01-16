@@ -18,48 +18,30 @@ public class AdventureAdapter {
     public static TextComponent helixToAdventure(HelixComponent helix) {
         TextComponent message = legacyToAdventure(helix.legacyText());
         if(Objects.nonNull(helix.clickContext())) {
+            HelixClickContext click = helix.clickContext();
+            String clickValue = click.value();
             message.clickEvent(
-                    ClickEvent.openUrl(
-                            helix.clickContext().value()
-                    )
-            );
-        }
-
-        if(Objects.nonNull(helix.runCommandContext())) {
-            message.clickEvent(
-                    ClickEvent.runCommand(
-                            helix.runCommandContext().value()
-                    )
-            );
-        }
-
-        if(Objects.nonNull(helix.suggestCommandContext())) {
-            message.clickEvent(
-                    ClickEvent.suggestCommand(
-                            helix.suggestCommandContext().value()
-                    )
-            );
-        }
-
-        if(Objects.nonNull(helix.copyContext())) {
-            message.clickEvent(
-                    ClickEvent.copyToClipboard(
-                            helix.copyContext().value()
-                    )
+                    switch(click.action()) {
+                        case OPEN_URL -> ClickEvent.openUrl(clickValue);
+                        case RUN_COMMAND -> ClickEvent.runCommand(clickValue);
+                        case SUGGEST_COMMAND -> ClickEvent.suggestCommand(clickValue);
+                        case COPY_TO_CLIPBOARD -> ClickEvent.copyToClipboard(clickValue);
+                        default -> null;
+                    }
             );
         }
 
         if(Objects.nonNull(helix.hoverContext())) {
             message.hoverEvent(
-                    HoverEvent.showText(
-                            legacyToAdventure(
-                                    helix.clickContext().value()
-                            )
-                    ));
-        }
-
-        if(Objects.nonNull(helix.showItemContext())) {
-            //TODO
+                    switch(helix.hoverContext().action()) {
+                        case SHOW_TEXT ->
+                            HoverEvent.showText(
+                                    legacyToAdventure(
+                                            helix.clickContext().value()
+                                    )
+                            );
+                        default -> null;
+                    });
         }
         return message;
     }

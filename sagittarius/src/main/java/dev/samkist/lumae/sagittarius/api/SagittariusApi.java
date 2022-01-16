@@ -1,5 +1,7 @@
 package dev.samkist.lumae.sagittarius.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dev.samkist.lumae.sagittarius.Sagittarius;
 import dev.samkist.lumae.sagittarius.data.gamemode.GameMode;
 import dev.samkist.lumae.sagittarius.data.managers.NetworkManager;
@@ -15,6 +17,9 @@ public class SagittariusApi {
     private final Sagittarius sagittarius = Sagittarius.getSagittarius();
     private final DataManager dataManager;
     private final NetworkManager networkManager;
+    private final Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .create();
 
     private SagittariusApi() {
         sagittarius.enable();
@@ -33,5 +38,9 @@ public class SagittariusApi {
 
     public Tests getTests() {
         return sagittarius.getTests();
+    }
+
+    public Gson gson() {
+        return gson;
     }
 }

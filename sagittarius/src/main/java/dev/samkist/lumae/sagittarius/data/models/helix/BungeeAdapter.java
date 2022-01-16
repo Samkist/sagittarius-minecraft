@@ -1,6 +1,8 @@
 package dev.samkist.lumae.sagittarius.data.models.helix;
 
 import dev.samkist.lumae.sagittarius.lang.ChatAPIUtil;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -13,11 +15,13 @@ import java.util.Optional;
 
 public class BungeeAdapter {
     public static TextComponent helixToBungee(HelixComponent helix) {
-        return new TextComponent(ComponentSerializer.parse(AdventureAdapter.helixToAdventureJson(helix)));
+        return new TextComponent(BungeeComponentSerializer.get().serialize(AdventureAdapter.helixToAdventure(helix)));
     }
 
     public static HelixComponent bungeeToHelix(TextComponent component) {
         HelixComponent helix = new HelixComponent();
+        Component comp = BungeeComponentSerializer.get().deserialize(component.getExtra().toArray(new BaseComponent[0]));
+
         if(Objects.nonNull(component.getClickEvent())) {
             ClickEvent click = component.getClickEvent();
             ClickEvent.Action action = click.getAction();
