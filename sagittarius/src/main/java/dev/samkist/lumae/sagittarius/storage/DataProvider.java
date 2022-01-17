@@ -1,40 +1,52 @@
 package dev.samkist.lumae.sagittarius.storage;
 
+import com.google.gson.reflect.TypeToken;
+import dev.samkist.lumae.sagittarius.api.SagittariusApi;
+import dev.samkist.lumae.sagittarius.compute.model.ModelLoader;
+import dev.samkist.lumae.sagittarius.compute.remote.model.ModelLoaderRemoteInterfaceAsync;
 import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
 import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
 import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
 import dev.samkist.lumae.sagittarius.data.models.global.ServerLocation;
 import dev.samkist.lumae.sagittarius.exceptions.APIRuntimeException;
 import dev.samkist.lumae.sagittarius.exceptions.PlayerNotFoundRuntimeException;
+import dev.samkist.lumae.sagittarius.storage.redis.RedisProvider;
+import dev.samkist.lumae.sagittarius.storage.redis.compute.ComputeServiceProvider;
 import kong.unirest.HttpResponse;
 import org.bukkit.entity.Player;
+import org.redisson.api.RRemoteService;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public class DataManager {
+public class DataProvider {
 
-    private final RESTManager restManager;
+    private final RESTProvider restProvider;
+    private final RedisProvider redisProvider;
+    private final ComputeServiceProvider computeServiceProvider;
+    private final ModelLoader modelLoader;
 
 
-    public DataManager(RESTManager restManager) {
-        this.restManager = restManager;
+    public DataProvider() {
+        SagittariusApi api = SagittariusApi.instance();
+        restProvider = api.restProvider();
+        redisProvider = api.redisProvider();
+        computeServiceProvider = api.computeServiceProvider();
+        modelLoader = new ModelLoader(redisProvider.client(), restProvider);
     }
 
     public MilkyPlayer getOrGenerateMilkyPlayer(Player player) {
-        HttpResponse<MilkyPlayer> response = restManager.getMilkyPlayer(player.getUniqueId().toString());
-        if(response.isSuccess()) {
-            return response.getBody();
-        } else {
-            return switch (response.getStatus()) {
-                case 404 -> saveMilkyPlayer(new MilkyPlayer(player));
-                default -> throw new APIRuntimeException("Failed API response.");
-            };
+        RRemoteService remoteService = redisProvider.client().getRemoteService();
+        ModelLoaderRemoteInterfaceAsync asyncService = remoteService.get(ModelLoaderRemoteInterfaceAsync.class);
+        try {
+            return asyncService.loadModel(new TypeToken<MilkyPlayer>(){}, player.getUniqueId().toString()).get();
+        } catch (Exception e) {
+            return null;
         }
     }
 
     public MilkyPlayer getMilkyPlayerByUuid(String uuid) {
-        return Optional.ofNullable(restManager.getMilkyPlayer(uuid).getBody())
+        return Optional.ofNullable(restProvider.getMilkyPlayer(uuid).getBody())
                 .orElseThrow(() -> new PlayerNotFoundRuntimeException("Player not found", uuid));
     }
 
@@ -43,7 +55,7 @@ public class DataManager {
     }
 
     public MilkyPlayer saveMilkyPlayer(MilkyPlayer milkyPlayer) {
-        HttpResponse<MilkyPlayer> response = restManager.saveMilkyPlayer(milkyPlayer);
+        HttpResponse<MilkyPlayer> response = restProvider.saveMilkyPlayer(milkyPlayer);
         if(!response.isSuccess()) {
             throw new APIRuntimeException("Failed API response.");
         } else {
@@ -160,7 +172,7 @@ public class DataManager {
     }
 
     public ChatFormat getChatFormat(String id) {
-        HttpResponse<ChatFormat> format = restManager.getChatFormat(id);
+        HttpResponse<ChatFormat> format = restProvider.getChatFormat(id);
         if(!format.isSuccess()) {
             if(format.getStatus() == 404) {
                 return getChatFormat("default");
@@ -173,7 +185,7 @@ public class DataManager {
     }
 
     public JoinLeaveFormat getJLFormat(String id) {
-        HttpResponse<JoinLeaveFormat> format = restManager.getJoinLeaveFormat(id);
+        HttpResponse<JoinLeaveFormat> format = restProvider.getJoinLeaveFormat(id);
         if(!format.isSuccess()) {
             if(format.getStatus() == 404) {
                 return getJLFormat("default");
@@ -183,5 +195,9 @@ public class DataManager {
         } else {
             return format.getBody();
         }
+    }
+
+    public ModelLoader modelLoader() {
+        return modelLoader;
     }
 }

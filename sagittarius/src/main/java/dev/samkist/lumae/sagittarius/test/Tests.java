@@ -9,7 +9,7 @@ import dev.samkist.lumae.sagittarius.data.models.gamemode.Warp;
 import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
 import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
 import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
-import dev.samkist.lumae.sagittarius.storage.RESTManager;
+import dev.samkist.lumae.sagittarius.storage.RESTProvider;
 import kong.unirest.HttpResponse;
 import org.bukkit.entity.Player;
 
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class Tests {
 
     private final Sagittarius apiCore;
-    private final RESTManager restManager;
+    private final RESTProvider restProvider;
     private final Gson gson;
     private final Logger logger = Logger.getGlobal();
     /**
@@ -30,18 +30,18 @@ public class Tests {
     private final String testingUUID = "9a96c347-7424-40fe-9fcd-cff5b8f706e0";
 
 
-    public Tests(Sagittarius apiCore, RESTManager restManager) {
+    public Tests(Sagittarius apiCore, RESTProvider restProvider) {
         this.apiCore = apiCore;
-        this.restManager = restManager;
+        this.restProvider = restProvider;
         this.gson = apiCore.gson;
     }
 
     public void logApiStatus() {
-        logger.info(restManager.status());
+        logger.info(restProvider.status());
     }
 
     public void tryPrintApiPlayerResult(Player player) {
-        HttpResponse<MilkyPlayer> mp = restManager.getMilkyPlayer(player.getUniqueId().toString());
+        HttpResponse<MilkyPlayer> mp = restProvider.getMilkyPlayer(player.getUniqueId().toString());
         mp.ifSuccess(succ -> {
             logger.info("Successfully loaded " + player.name());
             logger.info(gson.toJson(succ.getBody()));

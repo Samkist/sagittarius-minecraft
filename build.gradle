@@ -38,6 +38,7 @@ subprojects {
         implementation 'com.konghq:unirest-java:3.11.09'
         implementation "net.kyori:adventure-api:4.9.3"
         implementation 'net.kyori:adventure-text-serializer-bungeecord:4.0.1'
+        implementation 'org.redisson:redisson:3.16.7'
         //compileOnly 'me.clip:placeholderapi:2.10.10'
         compileOnly 'net.luckperms:api:5.3'
         compileOnly fileTree(dir: 'lib/', include: '*.jar')
@@ -62,6 +63,7 @@ project(':api') {
 
 project(':sagittarius') {
     dependencies {
+        implementation("com.google.guava:guava:31.0.1-jre")
         compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     }
 }

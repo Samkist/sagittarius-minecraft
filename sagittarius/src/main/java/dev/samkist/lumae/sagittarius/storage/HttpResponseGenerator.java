@@ -45,7 +45,7 @@ public class HttpResponseGenerator {
         return request(route, Arrays.asList(values));
     }
 
-    private HttpResponse request(Routes route, List<String> values) {
+    public HttpResponse request(Routes route, List<String> values) {
         return request(route, null, (GenericType) null, values);
     }
 
@@ -92,7 +92,7 @@ public class HttpResponseGenerator {
         return request(route, clazz, Arrays.asList(values));
     }
 
-    private <T> HttpResponse<T> request(Routes route, Class<T> clazz, List<String> values) {
+    public <T> HttpResponse<T> request(Routes route, Class<T> clazz, List<String> values) {
         return request(route, null, clazz, values);
     }
 
@@ -104,7 +104,7 @@ public class HttpResponseGenerator {
         return request(route, body, clazz, Arrays.asList(values));
     }
 
-    private <E, T> HttpResponse<T> request(Routes route, E body, Class<T> clazz, List<String> values) {
+    public <E, T> HttpResponse<T> request(Routes route, E body, Class<T> clazz, List<String> values) {
         if(Objects.nonNull(clazz)) {
             return request(route, body, new GenericType<>() {}, values);
         } else {
@@ -155,7 +155,7 @@ public class HttpResponseGenerator {
         return request(route, type, Arrays.asList(values));
     }
 
-    private <T> HttpResponse<T> request(Routes route, GenericType<T> type, List<String> values) {
+    public <T> HttpResponse<T> request(Routes route, GenericType<T> type, List<String> values) {
         return request(route, null, type, values);
     }
 
@@ -167,7 +167,7 @@ public class HttpResponseGenerator {
         return request(route, body, type, Arrays.asList(values));
     }
 
-    private <E, T> HttpResponse<T> request(Routes route, E body, GenericType<T> type, List<String> values) {
+    public <E, T> HttpResponse<T> request(Routes route, E body, GenericType<T> type, List<String> values) {
         HttpRequest request = generateRequest(route, body, values);
         if(Objects.nonNull(type)) {
             return request.asObject(type);
@@ -185,7 +185,6 @@ public class HttpResponseGenerator {
     private <E> HttpRequest generateRequest(Routes route, E body, List<String> values) {
         HttpRequest request = null;
         String unDevelopedRoute = apiHost + route.route();
-        System.out.println(String.format("Building: %s", unDevelopedRoute));
         switch(route.requestType()) {
             case GET:
                 request = Unirest.get(unDevelopedRoute);
@@ -209,10 +208,9 @@ public class HttpResponseGenerator {
             requestWithBody.body(gson.toJsonTree(body));
         }
 
-        List<String> variables = route.variables();
+        List<String> variables = route.parameters();
 
         for(int i = 0; i < variables.size(); ++i) {
-            System.out.println(String.format("Variables: %s", variables.get(i)));
             request.routeParam(variables.get(i), values.get(i));
         }
 

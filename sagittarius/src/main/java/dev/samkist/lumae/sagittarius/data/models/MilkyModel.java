@@ -1,9 +1,10 @@
 package dev.samkist.lumae.sagittarius.data.models;
 
+import dev.samkist.lumae.sagittarius.data.Identifiable;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.data.annotation.Id;
 
-public abstract class MilkyModel<T extends MilkyModel> {
+public abstract class MilkyModel<T extends MilkyModel> implements Identifiable<T> {
 
     @Id
     public String uid;
@@ -19,10 +20,12 @@ public abstract class MilkyModel<T extends MilkyModel> {
 
     }
 
+    @Override
     public String uid() {
         return uid;
     }
 
+    @Override
     public T uid(String uid) {
         this.uid = uid;
         return (T) this;

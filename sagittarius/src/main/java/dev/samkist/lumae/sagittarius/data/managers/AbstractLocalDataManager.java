@@ -1,13 +1,13 @@
 package dev.samkist.lumae.sagittarius.data.managers;
 
-import dev.samkist.lumae.sagittarius.storage.DataManager;
+import dev.samkist.lumae.sagittarius.storage.DataProvider;
 
 public abstract class AbstractLocalDataManager extends AbstractDataManager {
 
     private final AbstractServerManager parent;
 
-    protected AbstractLocalDataManager(DataManager dataManager, AbstractServerManager parent) {
-        super(dataManager);
+    protected AbstractLocalDataManager(DataProvider dataProvider, AbstractServerManager parent) {
+        super(dataProvider);
         this.parent = parent;
     }
 

@@ -3,7 +3,7 @@ package dev.samkist.lumae.sagittarius.data.managers;
 import dev.samkist.lumae.sagittarius.data.models.global.ChatFormat;
 import dev.samkist.lumae.sagittarius.data.models.global.JoinLeaveFormat;
 import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
-import dev.samkist.lumae.sagittarius.storage.DataManager;
+import dev.samkist.lumae.sagittarius.storage.DataProvider;
 import org.bukkit.entity.Player;
 
 public class PlayerManager extends AbstractGlobalDataManager {
@@ -11,14 +11,14 @@ public class PlayerManager extends AbstractGlobalDataManager {
     private final Player player;
     private final String uuid;
 
-    public PlayerManager(DataManager dataManager, NetworkManager networkManager, Player player) {//TODO take in either player object or milkyplayer object
-        super(dataManager, networkManager);
+    public PlayerManager(DataProvider dataProvider, NetworkManager networkManager, Player player) {//TODO take in either player object or milkyplayer object
+        super(dataProvider, networkManager);
         this.player = player;
         this.uuid = player.getUniqueId().toString();
     }
 
-    public PlayerManager(DataManager dataManager, NetworkManager networkManager, MilkyPlayer player) {
-        super(dataManager, networkManager);
+    public PlayerManager(DataProvider dataProvider, NetworkManager networkManager, MilkyPlayer player) {
+        super(dataProvider, networkManager);
         this.player = null;
         this.uuid = player.uid();
     }

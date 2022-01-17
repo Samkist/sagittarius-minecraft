@@ -47,6 +47,7 @@ public class MilkyPlayer extends MilkyModel<MilkyPlayer> {
         votes(0);
         secondsPlayed(0);
         joinDate(System.currentTimeMillis());
+        player.serialize()
         lastLocation(new ServerLocation("survival", player.getLocation()));
     }
 

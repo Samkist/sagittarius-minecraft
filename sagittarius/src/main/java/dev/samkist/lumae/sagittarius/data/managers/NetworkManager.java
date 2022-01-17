@@ -3,7 +3,7 @@ package dev.samkist.lumae.sagittarius.data.managers;
 import dev.samkist.lumae.sagittarius.api.SagittariusApi;
 import dev.samkist.lumae.sagittarius.data.gamemode.GameMode;
 import dev.samkist.lumae.sagittarius.data.models.global.MilkyPlayer;
-import dev.samkist.lumae.sagittarius.storage.DataManager;
+import dev.samkist.lumae.sagittarius.storage.DataProvider;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
@@ -15,9 +15,9 @@ public class NetworkManager extends AbstractDataManager {
     private final SurvivalServerManager survivalManager;
     private final SagittariusApi parentApi;
 
-    public NetworkManager(DataManager dataManager, SagittariusApi parentApi) {
-        super(dataManager);
-        this.survivalManager = new SurvivalServerManager(dataManager, this);
+    public NetworkManager(DataProvider dataProvider, SagittariusApi parentApi) {
+        super(dataProvider);
+        this.survivalManager = new SurvivalServerManager(dataProvider, this);
         this.parentApi = parentApi;
     }
 

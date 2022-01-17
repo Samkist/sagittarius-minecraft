@@ -16,7 +16,7 @@ import java.util.List;
 import static dev.samkist.lumae.sagittarius.storage.Routes.*;
 
 @SuppressWarnings("unchecked")
-public class RESTManager {
+public class RESTProvider {
 
     private final Sagittarius plugin;
     private final String apiHost;
@@ -36,7 +36,7 @@ public class RESTManager {
     public static final String WARPS = SERVERS + "/warps";
     public static final List<String> id = List.of("id");
 
-    public RESTManager(Sagittarius plugin, Gson gson, String apiHost) {
+    public RESTProvider(Sagittarius plugin, Gson gson, String apiHost) {
         this.plugin = plugin;
         this.apiHost = apiHost;
         this.generator = new HttpResponseGenerator(gson, apiHost);
@@ -147,5 +147,9 @@ public class RESTManager {
 
     public HttpResponse deleteWarp(GameMode gameMode, String id) {
         return generator.request(WARPS_DEL, gameMode.getName(), id);
+    }
+
+    public HttpResponseGenerator getGenerator() {
+        return generator;
     }
 }

@@ -1,15 +1,15 @@
 package dev.samkist.lumae.sagittarius.data.managers;
 
 import dev.samkist.lumae.sagittarius.data.gamemode.GameMode;
-import dev.samkist.lumae.sagittarius.storage.DataManager;
+import dev.samkist.lumae.sagittarius.storage.DataProvider;
 
 public abstract class AbstractServerManager extends AbstractDataManager {
 
     private final NetworkManager networkManager;
     private final GameMode gameMode;
 
-    protected AbstractServerManager(DataManager dataManager, NetworkManager networkManager, GameMode gameMode) {
-        super(dataManager);
+    protected AbstractServerManager(DataProvider dataProvider, NetworkManager networkManager, GameMode gameMode) {
+        super(dataProvider);
         this.networkManager = networkManager;
         this.gameMode = gameMode;
     }

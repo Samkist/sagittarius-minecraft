@@ -1,16 +1,16 @@
 package dev.samkist.lumae.sagittarius.data.managers;
 
-import dev.samkist.lumae.sagittarius.storage.DataManager;
+import dev.samkist.lumae.sagittarius.storage.DataProvider;
 
 public abstract class AbstractDataManager {
-    private final DataManager dataManager;
+    private final DataProvider dataProvider;
 
 
-    protected AbstractDataManager(DataManager dataManager) {
-        this.dataManager = dataManager;
+    protected AbstractDataManager(DataProvider dataProvider) {
+        this.dataProvider = dataProvider;
     }
 
-    protected DataManager getDataManager() {
-        return dataManager;
+    protected DataProvider getDataManager() {
+        return dataProvider;
     }
 }

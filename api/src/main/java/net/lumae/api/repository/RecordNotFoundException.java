@@ -4,13 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class RecordNotFoundException extends RuntimeException {
+public class RecordNotFoundException extends dev.samkist.lumae.sagittarius.exceptions.RecordNotFoundException {
 
     public RecordNotFoundException(String id, String type) {
-        super(String.format("ID %s not found in %s", id, type));
+        super(id, type);
     }
 
     public RecordNotFoundException(String id, Class clazz) {
-        super(String.format("Object %s of type %s", id, clazz.getName()));
+        super(id, clazz);
     }
 }
